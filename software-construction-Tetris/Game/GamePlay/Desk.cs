@@ -6,7 +6,7 @@ namespace Game
     public class Desk
     {
         private Canvas canvas;
-        private List<Shape> shapes;
+        public List<Shape> shapes;
 
         public Desk(GameScreen screen)
         {
@@ -24,7 +24,8 @@ namespace Game
 
             foreach (Shape shape in this.shapes)
             {
-                shape.draw(3, 3, this.canvas);
+                shape.draw(shape.x, shape.y, this.canvas);
+                // shape.draw(3 + shape.x, 3 + shape.y, this.canvas);
             }
         }
     }

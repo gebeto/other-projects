@@ -4,74 +4,73 @@ using System.Collections.Generic;
 
 namespace Game
 {
-    public class GameMenu : IScreen
+    public class GameMenu
     {
         public event GameMenuItemChangedHandler onChange;
 
-        private int highlighted;
-        
+        private int highlighted; 
         public int activeItem {get; private set;}
-
         public List<GameMenuItem> items;
+        public Canvas canvas;
 
-        public GameMenu() {
+        public GameMenu(GameScreen screen) {
             this.items = new List<GameMenuItem>();
             this.activeItem = 0;
             this.highlighted = this.activeItem;
-        }
-
-        public void render() {
-            int selected = -1;
-            while (selected == -1) {
-                Console.Clear();
-                for (int i = 0; i < this.items.Count; i++)
+            this.canvas = screen.canvas.createRelativeCanvas(1, 1, screen.canvas.width - 2, screen.canvas.height - 2);
+            screen.drawing += this.draw;
+            Keyboard.onPress += (KeyboardKey key) => {
+                switch (key)
                 {
-                    Console.SetCursorPosition(0, i);
-                    if (this.highlighted == i) {
-                        Console.BackgroundColor = System.ConsoleColor.White;
-                        Console.ForegroundColor = System.ConsoleColor.Black;
-                    }
-                    Console.Write(string.Format("{0}. {1}", i + 1, this.items[i].title));
-                    Console.ResetColor();
+                    case KeyboardKey.Enter:
+                        this.activeItem = this.highlighted;
+                        this.items[this.activeItem].select();
+                        this.change();
+                        break;
+
+                    case KeyboardKey.Up:
+                        this.highlighted--;
+                        break;
+
+                    case KeyboardKey.Down:
+                        this.highlighted++;
+                        break;
+
+                    default:
+                        break;
                 }
 
-                if (this.handleMenuSelectItem()) {
-                    break;
+                if (this.highlighted >= this.items.Count)
+                {
+                    this.highlighted = 0;
                 }
-            }
+                else if (this.highlighted < 0)
+                {
+                    this.highlighted = this.items.Count - 1;
+                }
+            };
         }
 
-        private bool handleMenuSelectItem() {
-            ConsoleKeyInfo key = Console.ReadKey();
-            int keyCode = key.Key.GetHashCode();
-            if (keyCode == 13)
+        public void draw() {
+            this.canvas.clear(ConsoleColor.Black);
+            for (int i = 0; i < this.items.Count; i++)
             {
-                this.activeItem = this.highlighted;
-                this.items[this.activeItem].select();
-                this.change();
-                return true;
+                if (this.highlighted == i) {
+                    this.canvas.setFillColor(ConsoleColor.White);
+                    this.canvas.setFontColor(ConsoleColor.Black);
+                } else {
+                    this.canvas.setFillColor(ConsoleColor.Black);
+                    this.canvas.setFontColor(ConsoleColor.White);
+                }
+                
+                string title = this.items[i].title;
+                this.canvas.drawText(
+                    this.canvas.width/2 - title.Length/2,
+                    this.canvas.height/2 - this.items.Count/2 + i,
+                    title
+                );
+                this.canvas.cursorTo(-1, -1);
             }
-            else if (keyCode == 40 || keyCode == 83)
-            {
-                this.highlighted++;
-            }
-            else if (keyCode == 38 || keyCode == 87)
-            {
-                this.highlighted--;
-            }
-
-            if (this.highlighted >= this.items.Count)
-            {
-                this.highlighted = 0;
-            }
-            else if (this.highlighted < 0)
-            {
-                this.highlighted = this.items.Count - 1;
-            }
-
-            // Console.WriteLine("\n\nKeyCode: {0}", key.Key.GetHashCode());
-            // Console.ReadKey();
-            return false;
         }
 
         private void change() {

@@ -79,6 +79,7 @@ namespace Game
             Console.ForegroundColor = this.fontColor;
             Console.SetCursorPosition(_x + x, _y + y);
             Console.Write(text);
+            Console.ResetColor();
             return this;
         }
 

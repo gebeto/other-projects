@@ -6,9 +6,13 @@ namespace Game
     public class Shape
     {
         private int[][] shape;
+        public int x;
+        public int y;
 
         public Shape()
         {
+            this.x = 0;
+            this.y = 0;
             this.shape = new int[][] {
                 new int[] {1, 1},
                 new int[] {0, 1},
