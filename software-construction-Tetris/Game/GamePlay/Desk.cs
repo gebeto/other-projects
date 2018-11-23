@@ -1,15 +1,17 @@
 using System;
+using System.Collections.Generic;
 
 namespace Game
 {
     public class Desk
     {
         private Canvas canvas;
-        private int score;
+        private List<Shape> shapes;
 
         public Desk(GameScreen screen)
         {
-            this.score = 0;
+            this.shapes = new List<Shape>(){};
+            this.shapes.Add(new Shape());
             this.canvas = screen.canvas.createRelativeCanvas(0, 0, 12, 20);
             screen.drawing += draw;
         }
@@ -20,21 +22,10 @@ namespace Game
                 .setFillColor(ConsoleColor.White)
                 .drawBox(0, 0, 12, 20);
 
-            // screen
-            //     .setFillColor(ConsoleColor.White)
-            //     // .drawBox(12, 0, 7, 7);
-            //     .fill(12, 0, 8, 8);
-
-            // screen
-            //     .setFillColor(ConsoleColor.Black)
-            //     .setFontColor(ConsoleColor.White)
-            //     .drawText(13, 8, "SCORE")
-            //     .drawText(13, 9, string.Format("{0}", this.score).PadLeft(5, '0'))
-            //     .cursorTo(0, 0);
-
-            // screen.setFillColor(ConsoleColor.Black);
-            // screen.setFontColor(ConsoleColor.White);
-            // screen.cursorTo(0, 0);
+            foreach (Shape shape in this.shapes)
+            {
+                shape.draw(3, 3, this.canvas);
+            }
         }
     }
 }
