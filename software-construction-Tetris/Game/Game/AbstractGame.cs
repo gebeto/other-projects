@@ -15,9 +15,12 @@ namespace Game {
         public event GameStateEventHandler onPause;
         public event GameStateEventHandler onStop;
 
+        public GameScreen screen;
+
         public AbstractGame()
         {
             gameState = GameState.Stop;
+            this.screen = new GameScreen();
         }
 
         public void start()

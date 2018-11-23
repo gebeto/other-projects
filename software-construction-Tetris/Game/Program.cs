@@ -10,9 +10,10 @@ namespace Game
 
     class Program
     {
-        static void Main(string[] args)
+        static void StartGame()
         {
             Game game = new Game();
+            GameScreen screen = game.screen;
             
             GameMenu menu = new GameMenu();
             menu.items.Add(new GameMenuItem("Start game", 1));
@@ -35,6 +36,19 @@ namespace Game
             );
 
             game.start();
+            Console.ReadKey();
+        }
+
+        static void Main(string[] args)
+        {
+            // StartGame();
+            // Console.Title = "Hello";
+            GameScreen screen = new GameScreen();
+            Desk gp = new Desk(screen);
+            Score sk = new Score(screen);
+
+            Console.Clear();
+            screen.draw();
             Console.ReadKey();
         }
     }
