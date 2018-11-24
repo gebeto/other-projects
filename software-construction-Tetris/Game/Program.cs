@@ -19,6 +19,11 @@ namespace Game
             GameMenu menu = new GameMenu(menuScreen);
             menu.items.Add(new GameMenuItem("Start game", 1));
             menu.items.Add(new GameMenuItem("Exit", 2));
+            menu.items.Add(new GameMenuItem("Menu item 3", 3));
+            menu.items.Add(new GameMenuItem("Menu item 4", 4));
+            menu.items.Add(new GameMenuItem("Menu item 5", 5));
+            menu.items.Add(new GameMenuItem("Menu item 6", 6));
+            menu.items.Add(new GameMenuItem("Menu item 7", 7));
             menu.onChange += (object sender, GameMenuItemChangedArgs e) =>
             {
                 Console.Clear();
