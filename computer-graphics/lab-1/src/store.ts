@@ -1,5 +1,8 @@
 import createStore from 'redux-zero';
 
+const randomColor = () => '#'+Math.floor(Math.random()*16777215).toString(16);
+const randomNumber = (to: number) => Math.floor(Math.random()*to);
+
 export interface IShape {
     x: number;
     y: number;
@@ -17,9 +20,9 @@ export interface IStore {
 export const store = createStore({
     items: [
         {
-            x: 10, y: 10,
+            x: randomNumber(30), y: randomNumber(30),
             width: 10, height: 10,
-            circleColor: '#000', diagonalColor: '#000',
+            circleColor: randomColor(), diagonalColor: '#000',
             key: Date.now(),
         }
     ],
@@ -30,9 +33,9 @@ export const actions = (store: any) => ({
     addItem: (state: IStore) => ({
         items: Array.prototype.concat([
             {
-                x: 10, y: 10,
+                x: randomNumber(30), y: randomNumber(30),
                 width: 10, height: 10,
-                circleColor: '#000', diagonalColor: '#000',
+                circleColor: randomColor(), diagonalColor: '#000',
                 key: Date.now()
             }
         ], state.items)
