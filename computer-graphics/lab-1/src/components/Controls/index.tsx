@@ -9,7 +9,7 @@ import propsValidation from 'redux-zero/utils/propsValidation';
 const AddButton = ({ onClick }: any) => {
     return (
         <div className="add-button">
-            <button onClick={onClick}>Add</button>
+            <button onClick={onClick}>Додати новий</button>
         </div>
     );
 }
