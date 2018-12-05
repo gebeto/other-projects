@@ -98,12 +98,14 @@ class BoundaryPlate {
         ctx.lineWidth = 1;
         
         ctx.lineWidth = 1;
+        ctx.strokeStyle = item.diagonalColor;
         ctx.beginPath();
         ctx.moveTo(plateX + plateWidth / 2, plateY);
         ctx.lineTo(plateX - plateWidth / 2, plateY);
         ctx.moveTo(plateX, plateY + plateHeight / 2);
         ctx.lineTo(plateX, plateY - plateHeight / 2);
         ctx.stroke();
+        ctx.strokeStyle = 'black';
         ctx.lineWidth = 1;
         
         const w2 = width / 2 * this.pixelSizeX;
@@ -111,10 +113,13 @@ class BoundaryPlate {
         const S = w2 * h2;
         const radius = S / Math.sqrt(Math.pow(w2, 2) + Math.pow(h2, 2)) 
         ctx.lineWidth = 2;
+        ctx.fillStyle = item.circleColor;
         ctx.beginPath();
         ctx.arc(plateX, plateY, radius, 0, Math.PI * 2);
         ctx.closePath();
         ctx.stroke();
+        ctx.fill();
+        ctx.fillStyle = 'black';
         ctx.lineWidth = 1;
     }
 }
@@ -131,7 +136,7 @@ class App extends React.Component<any, any> {
     render() {
         return (
             <React.Fragment>
-                <div className="container scrollable">
+                <div className="container">
                     <Controls />
                 </div>
                 <div className="container">

@@ -5,6 +5,7 @@ import { actions } from '../../store';
 import './index.scss';
 
 import Looper, { IUpdateable } from './Looper';
+import { AutoLoop } from './AutoLooper';
 
 
 export interface ICanvas {
@@ -50,15 +51,6 @@ class Canvas extends React.Component<any, any> implements IUpdateable {
         );
     }
 }
-
-const AutoLoop = connect(
-    (state: any) => ({
-        items: state.items
-    })
-)(() => {
-    Looper.makeLoop();
-    return null;
-});
 
 export default connect(
     (state: any) => ({

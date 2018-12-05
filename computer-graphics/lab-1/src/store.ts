@@ -5,6 +5,8 @@ export interface IShape {
     y: number;
     width: number;
     height: number;
+    circleColor: string;
+    diagonalColor: string;
     key: number;
 }
 
@@ -14,7 +16,12 @@ export interface IStore {
 
 export const store = createStore({
     items: [
-        {x: 10, y: 10, width: 5, height: 3, key: Date.now() }
+        {
+            x: 10, y: 10,
+            width: 10, height: 10,
+            circleColor: '#000', diagonalColor: '#000',
+            key: Date.now(),
+        }
     ],
 } as IStore);
 
@@ -22,7 +29,12 @@ export const store = createStore({
 export const actions = (store: any) => ({
     addItem: (state: IStore) => ({
         items: Array.prototype.concat([
-            { x: 10, y: 10, width: 5, height: 3, key: Date.now() }
+            {
+                x: 10, y: 10,
+                width: 10, height: 10,
+                circleColor: '#000', diagonalColor: '#000',
+                key: Date.now()
+            }
         ], state.items)
     }),
     removeItem: (state: IStore, item: any) => ({

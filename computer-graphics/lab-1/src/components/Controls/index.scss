@@ -1,11 +1,37 @@
+.add-button {
+    height: 40px;
+    
+    button {
+        width: 100%;
+        height: 100%;
+    }
+}
+
 .controls {
+    height: 100%;
+
+    &-wrapper {
+        padding: 0;
+        margin: 0;
+        height: calc(100% - 40px);
+        overflow-y: scroll;
+        overflow-x: hidden;
+
+        li {
+            list-style: none;
+            padding: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 3px;
+            margin-top: 3px;
+        }
+    }
 
     .control {
         text-align: center;
         
         input {
             text-align: center;
-            width: 40px;
+            width: 100%;
 
             &[type=number]::-webkit-inner-spin-button, 
             &[type=number]::-webkit-outer-spin-button {  
@@ -17,8 +43,5 @@
             }
         }
 
-        .add-button {
-            width: 100%;
-        }
     }
 }

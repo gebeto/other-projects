@@ -26,10 +26,6 @@ body {
     padding: 0px 5px;
     max-height: 600px;
 
-    &.scrollable {
-        overflow-y: scroll;
-    }
-
     &:first-child {
         padding-left: 0;
     }

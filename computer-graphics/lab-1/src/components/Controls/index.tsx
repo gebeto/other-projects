@@ -5,19 +5,12 @@ import { actions } from '../../store';
 import './index.scss';
 import propsValidation from 'redux-zero/utils/propsValidation';
 
-const ControlContainer = ({ children }: any) => (
-    <tr className="control">
-        {children}
-    </tr>
-);
 
 const AddButton = ({ onClick }: any) => {
     return (
-        <ControlContainer>
-            <td colSpan={5}>
-                <button className="add-button" onClick={onClick}>Add</button>
-            </td>
-        </ControlContainer>
+        <div className="add-button">
+            <button onClick={onClick}>Add</button>
+        </div>
     );
 }
 
@@ -31,13 +24,37 @@ class Control extends React.Component<any, any> {
     render() {
         const { data, removeItem, updateItem } = this.props;
         return (
-            <ControlContainer>
-                <td><input type="number" name="x" onChange={this.updateItem} value={data.x} /></td>
-                <td><input type="number" name="y" onChange={this.updateItem} value={data.y} /></td>
-                <td><input type="number" name="width" onChange={this.updateItem} value={data.width} /></td>
-                <td><input type="number" name="height" onChange={this.updateItem} value={data.height} /></td>
-                <td><input type="button" value="x" onClick={() => removeItem(data)} /></td>
-            </ControlContainer>
+            <li className="control">
+                <table><tbody>
+                    <tr>
+                        <td>X</td>
+                        <td><input type="number" name="x" onChange={this.updateItem} value={data.x} /></td>
+                    </tr>
+                    <tr>
+                        <td>Y</td>
+                        <td><input type="number" name="y" onChange={this.updateItem} value={data.y} /></td>
+                    </tr>
+                    <tr>
+                        <td>Ширина</td>
+                        <td><input type="number" name="width" onChange={this.updateItem} value={data.width} /></td>
+                    </tr>
+                    <tr>
+                        <td>Висота</td>
+                        <td><input type="number" name="height" onChange={this.updateItem} value={data.height} /></td>
+                    </tr>
+                    <tr>
+                        <td>Колір кола</td>
+                        <td><input type="color" name="circleColor" onChange={this.updateItem} value={data.circleColor} /></td>
+                    </tr>
+                    <tr>
+                        <td>Колір діагоналей</td>
+                        <td><input type="color" name="diagonalColor" onChange={this.updateItem} value={data.diagonalColor} /></td>
+                    </tr>
+                    <tr>
+                        <td colSpan={2}><input type="button" value="Видалити" onClick={() => removeItem(data)} /></td>
+                    </tr>
+                </tbody></table>
+            </li>
         );
     }
 }
@@ -46,27 +63,16 @@ class Controls extends React.Component<any, any> {
     render() {
         return (
             <div className="controls">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>X</th>
-                            <th>Y</th>
-                            <th>Ширина</th>
-                            <th>Висота</th>
-                            <th>Видалити</th>
-                        </tr>
-                        <AddButton onClick={this.props.addItem} />
-                    </thead>
-                    <tbody>
-                        {this.props.items.map((item: any, index: number) =>
-                            <Control
-                                key={index} data={item}
-                                removeItem={this.props.removeItem}
-                                updateItem={this.props.updateItem}
-                            />
-                        )}
-                    </tbody>
-                </table>
+                <AddButton onClick={this.props.addItem} />
+                <ul className="controls-wrapper">
+                    {this.props.items.map((item: any, index: number) =>
+                        <Control
+                        key={index} data={item}
+                        removeItem={this.props.removeItem}
+                        updateItem={this.props.updateItem}
+                        />
+                    )}
+                </ul>
             </div>
         );
     }
