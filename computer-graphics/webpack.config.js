@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
@@ -6,16 +7,21 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const envConfig = (env, opts) => {
 	return require(`./configs/webpack.${env}.js`)(env, {
-		path: opts.path,
+		path: __dirname,
 	});
 }
 
-const baseConfig = (env, opts) => {
+const baseConfig = (env, opts, ...args) => {
+	const projectPath = opts._.length ? path.resolve(__dirname, opts._[0]) : false;
+	if (!projectPath) throw "Project is not exists!";
+	const packagePath = path.resolve(projectPath, 'package.json');
+	if (!fs.existsSync(packagePath)) throw "Package.json are not found in project folder!";
+
 	return {
-		entry: path.resolve(opts.path, 'src/index.tsx'),
+		entry: path.resolve(projectPath, 'src/index.tsx'),
 
 		output: {
-			path: path.resolve(opts.path, 'dist'),
+			path: path.resolve(projectPath, 'dist'),
 			filename: 'bundle.js',
 		},
 
@@ -41,7 +47,7 @@ const baseConfig = (env, opts) => {
 				template: path.resolve(__dirname, 'templates/index.hbs'),
 				inject: false,
 				templateParameters: {
-					title: opts.package.name,
+					title: require(packagePath).name,
 				}
 			}),
 		]
