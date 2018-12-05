@@ -12,6 +12,10 @@ const envConfig = (env, opts) => require(`./configs/webpack.${env}.js`)(env, opt
 const baseConfig = (env, opts) => ({
 	entry: path.resolve(opts.path, 'src/index.tsx'),
 
+	resolve: {
+		extensions: ['.ts', '.tsx', '.js', '.jsx'],
+	},
+
 	output: {
 		path: path.resolve(opts.path, 'dist'),
 		filename: 'bundle.js',

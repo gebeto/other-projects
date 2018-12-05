@@ -1,0 +1,24 @@
+.controls {
+
+    .control {
+        text-align: center;
+        
+        input {
+            text-align: center;
+            width: 40px;
+
+            &[type=number]::-webkit-inner-spin-button, 
+            &[type=number]::-webkit-outer-spin-button {  
+                opacity: 1;
+            }
+
+            &.name {
+                border: none;
+            }
+        }
+
+        .add-button {
+            width: 100%;
+        }
+    }
+}

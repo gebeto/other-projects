@@ -1,0 +1,8 @@
+canvas {
+    &.canvas {
+        box-sizing: border-box;
+        border: 1px solid #333;
+        max-width: 500px;
+        max-height: 500px;
+    }
+}
