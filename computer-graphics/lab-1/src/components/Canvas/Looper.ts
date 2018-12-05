@@ -10,11 +10,17 @@ export default class Looper {
         for (let i = 0; i < Looper.renders.length; i++) {
             Looper.renders[i].updateCanvas();
         }
-        requestAnimationFrame(Looper.loop);
+        // requestAnimationFrame(Looper.loop);
+        console.log("LOOP");
+        // (window as any).requestIdleCallback(Looper.loop);
     }
 
     static addToLoop(canvas: IUpdateable) {
         Looper.renders.push(canvas);
+    }
+
+    static makeLoop() {
+        Looper.loop();
     }
 
     static start() {

@@ -33,19 +33,32 @@ class Canvas extends React.Component<any, any> implements IUpdateable {
     }
 
     shouldComponentUpdate() {
+        Looper.makeLoop();
         return false;
+    }
+
+    componentDidMount() {
+        Looper.makeLoop();
     }
 
     render() {
         return (
-            <canvas className="canvas" width="600" height="600" ref={(canvas: any) => {
+            <canvas className="canvas" width="800" height="800" ref={(canvas: any) => {
                 this.canvas = canvas;
                 this.ctx = canvas.getContext('2d');
-            }}></canvas>
+            }}><AutoLoop /></canvas>
         );
     }
 }
 
+const AutoLoop = connect(
+    (state: any) => ({
+        items: state.items
+    })
+)(() => {
+    Looper.makeLoop();
+    return null;
+});
 
 export default connect(
     (state: any) => ({

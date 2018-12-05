@@ -49,11 +49,11 @@ class Controls extends React.Component<any, any> {
                 <table>
                     <thead>
                         <tr>
-                            <th>Name</th>
                             <th>X</th>
                             <th>Y</th>
-                            <th>Width</th>
-                            <th>Height</th>
+                            <th>Ширина</th>
+                            <th>Висота</th>
+                            <th>Видалити</th>
                         </tr>
                         <AddButton onClick={this.props.addItem} />
                     </thead>

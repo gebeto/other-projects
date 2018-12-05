@@ -14,7 +14,7 @@ export interface IStore {
 
 export const store = createStore({
     items: [
-        {x: 0, y: 0, width: 100, height: 100, key: Date.now() }
+        {x: 10, y: 10, width: 5, height: 3, key: Date.now() }
     ],
 } as IStore);
 
@@ -22,7 +22,7 @@ export const store = createStore({
 export const actions = (store: any) => ({
     addItem: (state: IStore) => ({
         items: Array.prototype.concat([
-            { x: 0, y: 0, width: 100, height: 100, key: Date.now() }
+            { x: 10, y: 10, width: 5, height: 3, key: Date.now() }
         ], state.items)
     }),
     removeItem: (state: IStore, item: any) => ({
