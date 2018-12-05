@@ -1,12 +1,8 @@
 # Computer Graphics #1
+[Run](lab-1/dist)
 
-```js
-console.log('Hello world!!!');
-```
+# Computer Graphics #2
+[Run](lab-2/dist)
 
-```canvas
-console.log('Hello world!!!');
-```
-
-
-![Рис 1. Тест](https://user-images.githubusercontent.com/13422799/47007967-06fb9d80-d142-11e8-8d83-8adb97863a4f.png)
+# Computer Graphics #3
+[Run](lab-3/dist)

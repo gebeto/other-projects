@@ -3,6 +3,6 @@ import * as ReactDOM from 'react-dom';
 
 
 ReactDOM.render(
-	<div>Hello world lab-1!</div>,
-	document.getElementById('app')
+    <div>Hello world lab-2!</div>,
+    document.getElementById('app')
 );
