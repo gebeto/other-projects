@@ -12,7 +12,7 @@
         "@types/react": "^16.4.16",
         "@types/react-dom": "^16.0.9",
         "awesome-typescript-loader": "^5.2.1",
-        "clean-webpack-plugin": "^0.1.19",
+        "clean-webpack-plugin": "^1.0.0",
         "css-loader": "^1.0.0",
         "handlebars": "^4.0.12",
         "handlebars-loader": "^1.7.0",
