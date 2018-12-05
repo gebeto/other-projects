@@ -4,6 +4,8 @@ const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const prompts = require('prompts');
+
 
 const envConfig = (env, opts) => require(`./configs/webpack.${env}.js`)(env, opts);
 
@@ -43,13 +45,40 @@ const baseConfig = (env, opts) => ({
 	]
 });
 
+function validProject(projectName) {
+	const projectPath = path.resolve(__dirname, projectName);
+	const packagePath = path.resolve(projectPath, 'package.json');
+	if (!fs.existsSync(packagePath)) {
+		return false;
+	}
+	return true;
+}
 
-module.exports = (env, opts) => {
-	console.log(opts._);
 
-	return opts._.map((projectName, index) => {
+module.exports = async (env, opts) => {
+	let projects = null;
+	if (!opts._.length) {
+		const response = await prompts({
+			type: 'multiselect',
+			name: 'value',
+			choices: fs.readdirSync('./').filter(validProject),
+			message: `Please enter projects to ${process.env.npm_lifecycle_event}`,
+			validate: value => !validProject(value) ? `Project are not exists` : true
+		});
+		if (response.value instanceof Array) {
+			projects = response.value;
+		} else if (typeof response.value === 'string') {
+			projects = [response.value];
+		}
+	} else {
+		projects = opts._;
+	}
+
+	if (!projects.length) {
+		throw "No projects selected";
+	}
+	return projects.map((projectName, index) => {
 		const projectPath = path.resolve(__dirname, projectName);
-		// if (!projectPath) throw `Project is not exists!`;
 		const packagePath = path.resolve(projectPath, 'package.json');
 		if (!fs.existsSync(packagePath)) throw `Package.json are not found in project '${projectName}'!`;
 		
