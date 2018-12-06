@@ -1,7 +1,6 @@
 
 function HFractalFragment(ctx: CanvasRenderingContext2D, x: number, y: number, item: any) {
     ctx.beginPath();
-    // x = Math.sin((window as any).TIME) * x;
     ctx.moveTo(0, 0);
     ctx.lineTo(x, 0);
     ctx.lineTo(x, y);
