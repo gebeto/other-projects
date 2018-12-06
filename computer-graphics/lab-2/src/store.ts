@@ -12,6 +12,7 @@ export interface IItem {
     height: number;
     stepScale: number;
     dynamicLineWidth: boolean;
+    fractal: string;
 }
 
 export interface IStore {
@@ -27,6 +28,7 @@ const createItem = (itemsCount: number) => ({
     height: 600,
     stepScale: 0.5,
     dynamicLineWidth: true,
+    fractal: 'hfractal',
 })
 
 export const store = createStore({
