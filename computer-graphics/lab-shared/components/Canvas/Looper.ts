@@ -5,14 +5,18 @@ export interface IUpdateable {
 export default class Looper {
     private static started: boolean = false;
     private static renders: any[] = [];
+
+    private static animate() {
+        Looper.started = true;
+        Looper.refresh();
+        requestAnimationFrame(Looper.animate);
+    }
     
-    private static loop() {
+    private static refresh() {
         for (let i = 0; i < Looper.renders.length; i++) {
             Looper.renders[i].updateCanvas();
         }
-        // requestAnimationFrame(Looper.loop);
         console.log("LOOP");
-        // (window as any).requestIdleCallback(Looper.loop);
     }
 
     static addToLoop(canvas: IUpdateable) {
@@ -20,12 +24,13 @@ export default class Looper {
     }
 
     static makeLoop() {
-        Looper.loop();
+        if (this.started) return;
+        Looper.refresh();
     }
 
     static start() {
         if (Looper.started) return;
         Looper.started = true;
-        Looper.loop();
+        Looper.animate();
     }
 }

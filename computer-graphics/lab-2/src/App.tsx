@@ -1,15 +1,21 @@
 import * as React from 'react';
 import { connect } from 'redux-zero/react';
-import { actions, itemsSelector } from '../store';
+import { actions, itemsSelector } from './store';
 import { Wrapper, Container } from 'lab-shared/components/Wrapper/';
 
 
-import BoundaryPlate from './BoundaryPlate';
+import { HFractal } from './Fractal';
 import Canvas from 'lab-shared/components/Canvas';
 import ControlsNew from 'lab-shared/components/ControlsNew';
-import './App.scss';
 
-import DatGui, { DatBoolean, DatButton, DatColor, DatNumber, DatString, DatFolder } from 'react-dat-gui';
+import DatGui, {
+    DatBoolean,
+    DatButton,
+    DatColor,
+    DatNumber,
+    DatString,
+    DatFolder
+} from 'react-dat-gui';
 import Controls from 'lab-shared/components/Controls';
 
 
@@ -19,28 +25,20 @@ const ControlsConnected = connect(itemsSelector, actions)(ControlsNew);
 
 const Control = ({ data, title, update, remove }: any) => (
     <DatGui data={data} onUpdate={update}>
-        <DatFolder title={title}>
-            <DatString path='name' label='Назва' min={0} max={30} step={1} />
-            <DatBoolean path='shown_name' label='Відображати назву' />
-            <DatBoolean path='shown' label='Відображати' />
-            <DatNumber path='x' label='X' min={0} max={30} step={1} />
-            <DatNumber path='y' label='Y' min={0} max={30} step={1} />
-            <DatNumber path='width' label='Width' min={0} max={30} step={1} />
-            <DatNumber path='height' label='Height' min={0} max={30} step={1} />
-            <DatColor path='circleColor' label='Коло' />
-            <DatColor path='diagonalColor' label='Діагональ' />
-            <DatButton label='Видалити' onClick={() => remove(data)} />
-        </DatFolder>
+        <DatNumber path='deep' label='Глибина' min={1} max={7} step={1} />
+        <DatNumber path='angle' label='Кут нахилу' min={0} max={Math.PI} step={0.01} />
+        <DatBoolean path='zigZagAngle' label='Кожен рівень в різні боки'/>
+        <DatNumber path='width' label='Ширина' min={300} max={1000} step={1} />
+        <DatNumber path='height' label='Висота' min={300} max={1000} step={1} />
+        <DatNumber path='stepScale' label='Крок зменшення' min={0.1} max={1.0} step={0.01} />
+        <DatBoolean path='dynamicLineWidth' label='Динамічна ширина гілки'/>
     </DatGui>
 );
 
 
 class App extends React.Component<any, any> {
-    plate: BoundaryPlate;
-
     constructor(props: any) {
         super(props);
-        this.plate = new BoundaryPlate(30);
     }
 
     render() {
@@ -48,22 +46,22 @@ class App extends React.Component<any, any> {
             <Wrapper>
                 <Container>
                     <ControlsConnected
+                        addable={false}
                         ControlItem={Control}
                     />
                 </Container>
                 <Container>
-                    <CanvasConnected>
+                    <CanvasConnected width={1000} height={1000} autoUpdateable={false}>
                         {(ctx: CanvasRenderingContext2D, props: any) => {
                             const { items } = props;
                             const { width: w, height: h } = ctx.canvas;
                             const time = (Date.now() - window.performance.timeOrigin) / 1000;
+                            (window as any).TIME = time;
                             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
                             
-                            
-                            this.plate.render(ctx);
-                            items.map((item: any) => {
-                                item.shown && this.plate.renderItem(ctx, item);
-                            });
+                            ctx.translate(w / 2, h / 2);
+                            HFractal(ctx, 0, 0, items[0]);
+                            ctx.translate(-w / 2, -h / 2);
                         }}
                     </CanvasConnected>
                 </Container>

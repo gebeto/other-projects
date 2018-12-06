@@ -4,7 +4,8 @@
   "main": "src/index.tsx",
   "license": "MIT",
   "dependencies": {
-    "react-dat-gui": "^1.0.2"
+    "react-dat-gui": "^1.0.2",
+    "lab-shared": "1.0.0"
   },
   "devDependencies": {}
 }

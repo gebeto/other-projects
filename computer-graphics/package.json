@@ -1,6 +1,12 @@
 {
     "name": "computer-graphics",
     "private": true,
+    "workspaces": [
+        "lab-shared",
+        "lab-1",
+        "lab-2",
+        "lab-3"
+    ],
     "version": "1.0.0",
     "license": "MIT",
     "scripts": {
@@ -28,6 +34,7 @@
         "redux-zero": "^4.15.0",
         "sass-loader": "^7.1.0",
         "style-loader": "^0.23.1",
+        "vector2d": "^3.0.0",
         "webpack": "^4.20.2",
         "webpack-cli": "^3.1.2",
         "webpack-dev-server": "^3.1.9",

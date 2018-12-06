@@ -12,13 +12,17 @@ export interface ICanvas {
 }
 
 class Canvas extends React.Component<any, any> implements IUpdateable {
+    static defaultProps = {
+        width: 800,
+        height: 800,
+    }
+
     canvas?: HTMLCanvasElement;
     ctx?: CanvasRenderingContext2D;
 
     constructor(props: any) {
         super(props);
         Looper.addToLoop(this);
-        Looper.start();
     }
 
     updateCanvas() {
@@ -39,11 +43,14 @@ class Canvas extends React.Component<any, any> implements IUpdateable {
 
     componentDidMount() {
         Looper.makeLoop();
+        if (this.props.autoUpdateable) {
+            Looper.start();
+        }
     }
 
     render() {
         return (
-            <canvas className="canvas" width="800" height="800" ref={(canvas: any) => {
+            <canvas className="canvas" width={this.props.width} height={this.props.height} ref={(canvas: any) => {
                 this.canvas = canvas;
                 this.ctx = canvas.getContext('2d');
             }}><AutoLoop /></canvas>

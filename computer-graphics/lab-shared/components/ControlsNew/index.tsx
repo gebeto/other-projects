@@ -20,9 +20,14 @@ export interface ControlsProps {
     removeItem: any;
     items: any[];
     calssName?: string;
+    addable?: boolean;
 }
 
 export default class Controls extends React.Component<ControlsProps, any> {
+    static defaultProps = {
+        addable: true,
+    };
+
     update = (data: any) => this.props.updateItem(data, data);
     add = () => this.props.addItem();
     remove = (...args: any) => this.props.removeItem(...args);
@@ -31,9 +36,11 @@ export default class Controls extends React.Component<ControlsProps, any> {
         const { ControlItem, calssName} = this.props;
         return (
             <div className="scrollable">
-                <DatGui data={{}} onUpdate={() => {}}>
-                    <DatButton label='Додати фігуру' onClick={this.add} />
-                </DatGui>
+                {this.props.addable ?
+                    <DatGui data={{}} onUpdate={() => {}}>
+                        <DatButton label='Додати фігуру' onClick={this.add} />
+                    </DatGui> : null
+                }
                 {this.props.items.map((item: any, index: number) =>
                     <ControlItem
                         key={index}
