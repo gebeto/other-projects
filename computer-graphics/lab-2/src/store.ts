@@ -23,8 +23,8 @@ const createItem = (itemsCount: number) => ({
     deep: 1,
     angle: 0.0,
     zigZagAngle: false,
-    width: 300,
-    height: 300,
+    width: 600,
+    height: 600,
     stepScale: 0.5,
     dynamicLineWidth: true,
 })
