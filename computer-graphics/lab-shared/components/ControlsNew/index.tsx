@@ -19,6 +19,7 @@ export interface ControlsProps {
     addItem: any;
     removeItem: any;
     items: any[];
+    calssName?: string;
 }
 
 export default class Controls extends React.Component<ControlsProps, any> {
@@ -27,9 +28,9 @@ export default class Controls extends React.Component<ControlsProps, any> {
     remove = (...args: any) => this.props.removeItem(...args);
 
     render() {
-        const { ControlItem } = this.props;
+        const { ControlItem, calssName} = this.props;
         return (
-            <div>
+            <div className="scrollable">
                 <DatGui data={{}} onUpdate={() => {}}>
                     <DatButton label='Додати фігуру' onClick={this.add} />
                 </DatGui>
