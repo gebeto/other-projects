@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { connect } from 'redux-zero/react';
-import { actions } from '../../store';
 
 import './index.scss';
-import propsValidation from 'redux-zero/utils/propsValidation';
 
 
 const AddButton = ({ onClick }: any) => {
@@ -12,6 +10,10 @@ const AddButton = ({ onClick }: any) => {
             <button onClick={onClick}>Додати новий</button>
         </div>
     );
+}
+
+class ControlField extends React.Component<any ,any> {
+    
 }
 
 class Control extends React.Component<any, any> {
@@ -67,9 +69,9 @@ class Controls extends React.Component<any, any> {
                 <ul className="controls-wrapper">
                     {this.props.items.map((item: any, index: number) =>
                         <Control
-                        key={index} data={item}
-                        removeItem={this.props.removeItem}
-                        updateItem={this.props.updateItem}
+                            key={index} data={item}
+                            removeItem={this.props.removeItem}
+                            updateItem={this.props.updateItem}
                         />
                     )}
                 </ul>
@@ -79,9 +81,4 @@ class Controls extends React.Component<any, any> {
 }
 
 
-export default connect(
-    (state: any) => ({
-        items: state.items,
-    }),
-    actions
-)(Controls);
+export default Controls;

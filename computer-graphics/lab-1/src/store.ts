@@ -11,39 +11,44 @@ export interface IShape {
     circleColor: string;
     diagonalColor: string;
     key: number;
+    name: any;
+    shown: boolean;
+    shown_name: any;
 }
 
 export interface IStore {
     items: IShape[];
 }
 
+const createItem = (itemsCount: number) => ({
+    x: randomNumber(30), y: randomNumber(30),
+    width: 10, height: 10,
+    circleColor: randomColor(), diagonalColor: '#000',
+    key: Date.now(),
+    name: `Фігура #${itemsCount}`,
+    shown: true,
+    shown_name: true,
+})
+
 export const store = createStore({
     items: [
-        {
-            x: randomNumber(30), y: randomNumber(30),
-            width: 10, height: 10,
-            circleColor: randomColor(), diagonalColor: '#000',
-            key: Date.now(),
-        }
+        createItem(0)
     ],
 } as IStore);
+
+export const itemsSelector = (state: any) => ({ items: state.items });
 
 
 export const actions = (store: any) => ({
     addItem: (state: IStore) => ({
-        items: Array.prototype.concat([
-            {
-                x: randomNumber(30), y: randomNumber(30),
-                width: 10, height: 10,
-                circleColor: randomColor(), diagonalColor: '#000',
-                key: Date.now()
-            }
-        ], state.items)
+        items: Array.prototype.concat(state.items, [
+            createItem(state.items.length)
+        ])
     }),
     removeItem: (state: IStore, item: any) => ({
-        items: state.items.filter(el => el !== item),
+        items: state.items.filter(el => el.key !== item.key),
     }),
     updateItem: (state: IStore, item: any, updates: any) => ({
-        items: state.items.map(el => el === item ? {...item, ...updates} : el),
+        items: state.items.map(el => el.key === item.key ? {...item, ...updates} : el),
     }),
 });

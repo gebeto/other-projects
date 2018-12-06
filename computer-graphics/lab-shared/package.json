@@ -1,10 +1,8 @@
 {
-  "name": "computer-graphics-1",
+  "name": "lab-shared",
   "version": "1.0.0",
   "main": "src/index.tsx",
   "license": "MIT",
-  "dependencies": {
-    "react-dat-gui": "^1.0.2"
-  },
+  "dependencies": {},
   "devDependencies": {}
 }

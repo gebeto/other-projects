@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { connect } from 'redux-zero/react';
 
-import { actions } from '../../store';
 import './index.scss';
 
 import Looper, { IUpdateable } from './Looper';
@@ -52,9 +51,5 @@ class Canvas extends React.Component<any, any> implements IUpdateable {
     }
 }
 
-export default connect(
-    (state: any) => ({
-        items: state.items,
-    }),
-    actions
-)(Canvas)
+
+export default Canvas;
