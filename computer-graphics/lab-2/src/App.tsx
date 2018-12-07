@@ -63,10 +63,17 @@ class App extends React.Component<any, any> {
                             const time = (Date.now() - window.performance.timeOrigin) / 1000;
                             (window as any).TIME = time;
                             ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+                            // console.log(props);
                             
                             ctx.translate(w / 2, h / 2);
                             Fractal(ctx, 0, 0, items[0]);
                             ctx.translate(-w / 2, -h / 2);
+
+                            // props.updateItem({
+                            //     ...items[0],
+                            //     angle: Math.cos(time), 
+                            // });
                         }}
                     </CanvasConnected>
                 </Container>
