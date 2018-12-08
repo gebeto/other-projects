@@ -10,17 +10,20 @@ export interface ControlItemProps {
     update: (...args: any) => any,
     remove: (...args: any) => any,
     title: any,
+    globals: any,
 }
 
 export interface ControlsProps {
     addButtonTitle: string,
     ControlItem: React.ComponentClass<ControlItemProps, any>;
+    ControlCoreItem: React.ComponentClass<any, any>;
     updateItem: any;
     addItem: any;
     removeItem: any;
     items: any[];
     calssName?: string;
     addable?: boolean;
+    [key: string]: any;
 }
 
 export default class Controls extends React.Component<ControlsProps, any> {
@@ -33,14 +36,10 @@ export default class Controls extends React.Component<ControlsProps, any> {
     remove = (...args: any) => this.props.removeItem(...args);
 
     render() {
-        const { ControlItem, calssName} = this.props;
+        const { ControlItem, ControlCoreItem, calssName} = this.props;
         return (
             <div className="scrollable">
-                {this.props.addable ?
-                    <DatGui data={{}} onUpdate={() => {}}>
-                        <DatButton label='Додати фігуру' onClick={this.add} />
-                    </DatGui> : null
-                }
+                {ControlCoreItem ? <ControlCoreItem /> : null}
                 {this.props.items.map((item: any, index: number) =>
                     <ControlItem
                         key={index}
@@ -48,6 +47,7 @@ export default class Controls extends React.Component<ControlsProps, any> {
                         update={this.update}
                         remove={this.remove}
                         title={item.name}
+                        globals={this.props.globals}
                     />
                 )}
             </div>

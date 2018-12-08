@@ -1,20 +1,18 @@
 export default class BoundaryPlate {
     pixelSizeX: number;
     pixelSizeY: number;
-    gridSize: number;
     padding: number;
 
-    constructor(gridSize: number) {
+    constructor(opts: any) {
         this.pixelSizeX = 0;
         this.pixelSizeY = 0;
-        this.gridSize = gridSize;
         this.padding = 20;
     }
 
-    private drawPlate(ctx: CanvasRenderingContext2D) {
+    private drawPlate(ctx: CanvasRenderingContext2D, opts: any) {
         const { width: w, height: h } = ctx.canvas;
 
-        this.drawGrid(ctx, this.padding, h - this.padding, w - this.padding * 2, (h - this.padding * 2) * -1);
+        this.drawGrid(ctx, opts, this.padding, h - this.padding, w - this.padding * 2, (h - this.padding * 2) * -1);
 
         ctx.beginPath();
         const padding = this.padding;
@@ -39,14 +37,14 @@ export default class BoundaryPlate {
         ctx.stroke();
     }
 
-    private drawGrid(ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number) {
-        this.pixelSizeX = width / this.gridSize;
-        this.pixelSizeY = height / this.gridSize;
+    private drawGrid(ctx: CanvasRenderingContext2D, opts: any, x: number, y: number, width: number, height: number) {
+        this.pixelSizeX = width / opts.gridSize;
+        this.pixelSizeY = height / opts.gridSize;
         ctx.strokeStyle = '#eee';
         ctx.font = '12px sans-serif';
-        for (let i = 0; i < this.gridSize; i++) {
+        for (let i = 0; i < opts.gridSize; i++) {
             const posX = x + i * this.pixelSizeX;
-            for (let j = 0; j < this.gridSize; j++) {
+            for (let j = 0; j < opts.gridSize; j++) {
                 const posY = y + j * this.pixelSizeY;
                 if (i === 0 && j > 0) {
                     ctx.textAlign = 'right';
@@ -62,11 +60,11 @@ export default class BoundaryPlate {
         ctx.strokeStyle = '#000';
     }
 
-    render(ctx: CanvasRenderingContext2D) {
-        this.drawPlate(ctx);
+    render(ctx: CanvasRenderingContext2D, opts: any) {
+        this.drawPlate(ctx, opts);
     }
 
-    renderItem(ctx: CanvasRenderingContext2D, item: any) {
+    renderItem(ctx: CanvasRenderingContext2D, opts: any, item: any) {
         const x = item.x;
         const y = item.y;
         const width = item.width;

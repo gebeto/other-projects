@@ -18,10 +18,11 @@ export interface IShape {
 
 export interface IStore {
     items: IShape[];
+    globals: any;
 }
 
-const createItem = (itemsCount: number) => ({
-    x: randomNumber(30), y: randomNumber(30),
+const createItem = (itemsCount: number, opts: any) => ({
+    x: randomNumber(opts.gridSize), y: randomNumber(opts.gridSize),
     width: 10, height: 10,
     circleColor: randomColor(), diagonalColor: '#000',
     key: Date.now(),
@@ -32,17 +33,20 @@ const createItem = (itemsCount: number) => ({
 
 export const store = createStore({
     items: [
-        createItem(0)
+        createItem(0, { gridSize: 30 })
     ],
+    globals: {
+        gridSize: 30,
+    }
 } as IStore);
 
-export const itemsSelector = (state: any) => ({ items: state.items });
+export const itemsSelector = (state: any) => ({ items: state.items, globals: state.globals });
 
 
 export const actions = (store: any) => ({
     addItem: (state: IStore) => ({
         items: Array.prototype.concat(state.items, [
-            createItem(state.items.length)
+            createItem(state.items.length, state.globals)
         ])
     }),
     removeItem: (state: IStore, item: any) => ({

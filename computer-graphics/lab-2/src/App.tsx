@@ -26,6 +26,8 @@ const ControlsConnected = connect(itemsSelector, actions)(ControlsNew);
 
 const Control = ({ data, title, update, remove }: any) => (
     <DatGui data={data} onUpdate={update}>
+        <DatNumber path='x' label='X' min={-500} max={500} step={1} />
+        <DatNumber path='y' label='Y' min={-500} max={500} step={1} />
         <DatNumber path='deep' label='Глибина' min={1} max={7} step={1} />
         <DatNumber path='angle' label='Кут нахилу' min={-Math.PI} max={Math.PI} step={0.01} />
         <DatBoolean path='zigZagAngle' label='Кожен рівень в різні боки'/>
@@ -56,7 +58,7 @@ class App extends React.Component<any, any> {
                     />
                 </Container>
                 <Container>
-                    <CanvasConnected width={1000} height={1000} autoUpdateable={false}>
+                    <CanvasConnected width={1000} height={1000} autoUpdateable={true}>
                         {(ctx: CanvasRenderingContext2D, props: any) => {
                             const { items } = props;
                             const { width: w, height: h } = ctx.canvas;
@@ -67,7 +69,7 @@ class App extends React.Component<any, any> {
                             // console.log(props);
                             
                             ctx.translate(w / 2, h / 2);
-                            Fractal(ctx, 0, 0, items[0]);
+                            Fractal(ctx, items[0].x, items[0].y, items[0]);
                             ctx.translate(-w / 2, -h / 2);
 
                             // props.updateItem({

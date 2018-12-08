@@ -1,0 +1,29 @@
+.about {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	z-index: 100000000;
+
+
+	&__show-button {
+		position: fixed;
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		line-height: 20px;
+		text-align: center;
+		right: 10px;
+		top: 10px;
+	}
+
+	&__content {
+		display: none;
+		
+		.shown {
+			display: block;
+		}
+	}
+}

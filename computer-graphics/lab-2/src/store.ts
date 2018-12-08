@@ -4,6 +4,8 @@ const randomColor = () => '#'+Math.floor(Math.random()*16777215).toString(16);
 const randomNumber = (to: number) => Math.floor(Math.random()*to);
 
 export interface IItem {
+    x: number;
+    y: number;
     key: number;
     deep: number;
     angle: number;
@@ -20,6 +22,8 @@ export interface IStore {
 }
 
 const createItem = (itemsCount: number) => ({
+    x: 0,
+    y: 0,
     key: Date.now(),
     deep: 1,
     angle: 0.0,
