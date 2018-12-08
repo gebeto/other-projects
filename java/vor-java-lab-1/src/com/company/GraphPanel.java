@@ -50,13 +50,7 @@ class GraphPanel extends JPanel {
         this.plate.draw(graphics);
 
         for (TriangleShape shape : this.triangles) {
-            Point coord1 = shape.point1;
-            Point coord2 = shape.point2;
-            Point coord3 = shape.point3;
-
-            this.plate.drawLine(graphics, coord1.x, coord1.y, coord2.x, coord2.y);
-            this.plate.drawLine(graphics, coord2.x, coord2.y, coord3.x, coord3.y);
-            this.plate.drawLine(graphics, coord3.x, coord3.y, coord1.x, coord1.y);
+            this.plate.drawTriangle(graphics, shape);
         }
     }
 

@@ -91,20 +91,23 @@ class Plate {
     }
 
     public Point getCoord(int x, int y) {
-        return new Point(
-            centerX + (x * pixelSizeX),
-            centerY + (-y * pixelSizeY)
-        );
+        return new Point(centerX + (x * pixelSizeX), centerY + (-y * pixelSizeY));
+    }
+
+    public Point getCoord(Point p) {
+        return new Point(centerX + (p.x * pixelSizeX), centerY + (-p.y * pixelSizeY));
     }
 
     public void drawLine(Graphics g, int xFrom, int yFrom, int xTo, int yTo) {
         Point xy1 = this.getCoord(xFrom, yFrom);
         Point xy2 = this.getCoord(xTo, yTo);
-        g.drawLine(
-            xy1.x,
-            xy1.y,
-            xy2.x,
-            xy2.y
-        );
+        g.drawLine(xy1.x, xy1.y, xy2.x, xy2.y);
+    }
+
+    public void drawTriangle(Graphics g, TriangleShape t) {
+        Point a = this.getCoord(t.point1.x, t.point1.y);
+        Point b = this.getCoord(t.point2.x, t.point2.y);
+        Point c = this.getCoord(t.point3.x, t.point3.y);
+        g.fillPolygon(new int[] { a.x, b.x, c.x }, new int[] { a.y, b.y, c.y }, 3);
     }
 }
