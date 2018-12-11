@@ -1,8 +1,18 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
+import { Provider } from 'redux-zero/react';
+
+import { store } from './store';
+import App from './App';
+
+import './index.scss';
 
 ReactDOM.render(
-    <div>Hello world lab-3! Yo Yo</div>,
-    document.getElementById('app')
+	(
+		<Provider store={store}>
+			<App />
+		</Provider>
+	),
+	document.getElementById('app'),
 );
