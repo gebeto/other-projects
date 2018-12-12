@@ -1,3 +1,5 @@
+import { Point } from './AffinaMatrix';
+
 export default class BoundaryPlate {
     x: number;
     y: number;
@@ -21,11 +23,10 @@ export default class BoundaryPlate {
 
         this.centerX = x + width / 2;
         this.centerY = y + height / 2;
-
-        // console.log(this.pixelSizeX, this.pixelSizeY);
     }
 
     setGridSize(size: number) {
+        if (this.gridSize === size) return;
         this.gridSize = size;
         this.pixelSizeX = this.width / this.gridSize;
         this.pixelSizeY = this.height / this.gridSize;
@@ -36,7 +37,7 @@ export default class BoundaryPlate {
         this.drawAxis(ctx);
     }
 
-    drawGrid(ctx: CanvasRenderingContext2D) {
+    private drawGrid(ctx: CanvasRenderingContext2D) {
         ctx.save();
         ctx.strokeStyle = '#aaa';
         const { x, y, width, height } = this;
@@ -48,7 +49,7 @@ export default class BoundaryPlate {
         ctx.restore();
     }
 
-    drawAxis(ctx: CanvasRenderingContext2D) {
+    private drawAxis(ctx: CanvasRenderingContext2D) {
         ctx.save();
         ctx.strokeStyle = '#000';
         const { x, y, width, height } = this;
@@ -93,21 +94,23 @@ export default class BoundaryPlate {
         ctx.stroke();
     }
 
-    drawTriangle(ctx: CanvasRenderingContext2D, t: TriangleShape) {
+    drawTriangle(ctx: CanvasRenderingContext2D, t: Paralelogram) {
         const a: Point = this.getCoord(t.p1);
         const b: Point = this.getCoord(t.p2);
         const c: Point = this.getCoord(t.p3);
+        const d: Point = this.getCoord(t.p4);
 
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
         ctx.lineTo(c.x, c.y);
+        ctx.lineTo(d.x, d.y);
         ctx.lineTo(a.x, a.y);
         ctx.stroke();
     }
 }
 
-export class TriangleShape {
+export class Paralelogram {
     p1: Point;
     p2: Point;
     p3: Point;
@@ -118,15 +121,5 @@ export class TriangleShape {
         this.p2 = p2;
         this.p3 = p3;
         this.p4 = p4;
-    }
-}
-
-export class Point {
-    x: number;
-    y: number;
-
-    constructor(x: number, y: number) {
-        this.x = x;
-        this.y = y;
     }
 }
