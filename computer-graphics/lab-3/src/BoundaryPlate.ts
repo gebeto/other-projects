@@ -94,7 +94,7 @@ export default class BoundaryPlate {
         ctx.stroke();
     }
 
-    drawTriangle(ctx: CanvasRenderingContext2D, t: Paralelogram) {
+    drawParalelogram(ctx: CanvasRenderingContext2D, t: Paralelogram) {
         const a: Point = this.getCoord(t.p1);
         const b: Point = this.getCoord(t.p2);
         const c: Point = this.getCoord(t.p3);

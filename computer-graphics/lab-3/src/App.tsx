@@ -87,7 +87,6 @@ const ControlCore = (props: any) => (
                 }
                 return min;
             }, data.gridSize);
-            // console.log(state);
             return {
                 globals: {
                     ...state.globals,
@@ -152,7 +151,7 @@ class App extends React.Component<any, any> {
                                 }
                             });
 
-                            this.plate.drawTriangle(ctx, new Paralelogram(p1, p2, p3, p4));
+                            this.plate.drawParalelogram(ctx, new Paralelogram(p1, p2, p3, p4));
                         }}
                     </CanvasConnected>
                 </Container>
