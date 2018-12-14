@@ -13,6 +13,7 @@ namespace lab_2 {
 
         public static string[] names = {
             "Terry",
+            "John",
             "Andrew",
             "Antony",
             "Cherry",
