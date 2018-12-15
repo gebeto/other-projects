@@ -12,19 +12,18 @@ namespace lab_2
                 from animal in animals
                 where animal.age >= 50 && animal.age <= 60
                 orderby animal.age ascending
-                select new {
-                    name = animal.name,
-                    type = animal.type,
-                    age = animal.age,
-                    toConsoleWrite = String.Format("Animal: {0}, {1}, {2} ", animal.name, animal.type, animal.age)
-                }
+                select animal
             );
 
             Console.WriteLine("\nAnimals older then 50 years and smaller than 60: {0}", lg50sm60.Count());
-            foreach (var animal in lg50sm60)
-            {
-                Console.WriteLine(animal.toConsoleWrite);
-            }
+            AnimalsPrinter.PrintAnimals(lg50sm60);
+        }
+
+        static void ToArray(IEnumerable<Animal> animals)
+        {
+            Animal[] animalsArr = animals.ToArray();
+            Console.WriteLine("Type of 'animalsArr' = {0}", animalsArr.GetType());
+            Console.WriteLine("FIrst element of 'animalsArr' = {0}", animalsArr[0].name);
         }
 
         static void Main(string[] args)
@@ -35,11 +34,23 @@ namespace lab_2
                 select animal
             );
 
-            Selection(animals.GetWithName("John"));
 
-            Animal[] animalsArr = animals.ToArray();
-            Console.WriteLine("Type of 'animalsArr' = {0}", animalsArr.GetType());
-            Console.WriteLine("FIrst element of 'animalsArr' = {0}", animalsArr[0].name);
+
+            Selection(animals.GetWithName("John"));
+            ToArray(animals);
+
+            Dictionary<string, List<Animal>> dict = animals.ToDictionaryByType();
+
+            Console.WriteLine("Grouped");
+            AnimalsPrinter.PrintAnimals(dict);
+
+            Console.WriteLine("\n\nGrouped filtered");
+            AnimalsPrinter.PrintAnimals(dict.SelectMany(
+                kvp => kvp.Value.Where(
+                    animal => animal.age > 50
+                )
+            ));
+
         }
     }
 }

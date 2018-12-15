@@ -1,5 +1,6 @@
 ﻿using System;
 using SFML.System;
+using SFML.Window;
 
 
 namespace lab_3
@@ -13,27 +14,6 @@ namespace lab_3
             window.Run();
 
             Console.WriteLine("All done");
-        }
-    }
-
-    public class Desk : SFML.Graphics.Shape {
-        public override uint GetPointCount() => 4;
-
-        public override Vector2f GetPoint(uint index)
-        {
-            Console.WriteLine("Point {0}", index);
-            switch (index)
-            {
-                case 0:
-                    return new Vector2f(0, 0);
-                case 1:
-                    return new Vector2f(10, 0);
-                case 2:
-                    return new Vector2f(10, 10);
-                case 3:
-                    return new Vector2f(0, 10);
-            }
-            return new Vector2f(0, 0);
         }
     }
 
@@ -53,11 +33,11 @@ namespace lab_3
         {
             var mode = new SFML.Window.VideoMode(600, 600);
             var window = new SFML.Graphics.RenderWindow(mode, "SFML works!");
+            window.SetVerticalSyncEnabled(true);
             window.KeyPressed += Window_KeyPressed;
 
-            // var circle = new SFML.Graphics.CircleShape(100f)
-            var circle = new Desk()
-            // var circle = new SFML.Graphics.RectangleShape(new Vector2f(100.0f, 100.0f))
+            // var circle = new SFML.Graphics.CircleShape(100f);
+            var circle = new SFML.Graphics.RectangleShape(new Vector2f(100.0f, 100.0f))
             {
                 FillColor = SFML.Graphics.Color.Blue
             };
@@ -66,29 +46,37 @@ namespace lab_3
             while (window.IsOpen)
             {
                 // Process events
-                window.DispatchEvents();
                 window.Clear();
+                window.DispatchEvents();
 
-                // circle.Rotation += 0.1f;
-                if (this.direction == Direction.DOWN)
-                {
-                    circle.Position = new Vector2f(circle.Position.X, circle.Position.Y + 1.0f);
-                }
-                else if (this.direction == Direction.UP)
-                {
-                    circle.Position = new Vector2f(circle.Position.X, circle.Position.Y - 1.0f);
-                }
-                else if (this.direction == Direction.LEFT)
-                {
-                    circle.Position = new Vector2f(circle.Position.X - 1.0f, circle.Position.Y);
-                }
-                else if (this.direction == Direction.RIGHT)
-                {
-                    circle.Position = new Vector2f(circle.Position.X + 1.0f, circle.Position.Y);
-                }
+                circle.Rotation += 0.5f;
+
+                Vector2f ms = (Vector2f)Mouse.GetPosition(window);
+                // circle.Position *= ms;
+                circle.Position = new Vector2f(
+                    circle.Position.X - (circle.Position.X - ms.X) / 40,
+                    circle.Position.Y - (circle.Position.Y - ms.Y) / 40
+                );
+                // if (this.direction == Direction.DOWN)
+                // {
+                //     circle.Position = new Vector2f(circle.Position.X, circle.Position.Y + 1.0f);
+                // }
+                // else if (this.direction == Direction.UP)
+                // {
+                //     circle.Position = new Vector2f(circle.Position.X, circle.Position.Y - 1.0f);
+                // }
+                // else if (this.direction == Direction.LEFT)
+                // {
+                //     circle.Position = new Vector2f(circle.Position.X - 1.0f, circle.Position.Y);
+                // }
+                // else if (this.direction == Direction.RIGHT)
+                // {
+                //     circle.Position = new Vector2f(circle.Position.X + 1.0f, circle.Position.Y);
+                // }
                 window.Draw(circle);
 
                 // Finally, display the rendered frame on screen
+                window.SetActive();
                 window.Display();
             }
         }

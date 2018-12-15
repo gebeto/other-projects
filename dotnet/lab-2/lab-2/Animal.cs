@@ -13,6 +13,11 @@ namespace lab_2 {
             );
         }
 
+        public static IEnumerable<IAnimal> ToList(this IEnumerable<IAnimal> animals)
+        {
+            return animals;
+        }
+
         public static IEnumerable<Animal> GetWithName(this IEnumerable<Animal> animals, string name)
         {
             return (
@@ -27,6 +32,32 @@ namespace lab_2 {
             return animals.Where(animal => animal.type == type);
         }
 
+        public static IEnumerable<IGrouping<string, Animal>> ToGroupByType(this IEnumerable<Animal> animals)
+        {
+            var group = (
+                from animal in animals
+                group animal by animal.type
+            );
+            return group;
+        }
+
+        public static Dictionary<string, List<Animal>> ToDictionaryByType(this IEnumerable<Animal> animals)
+        {
+            Dictionary<string, List<Animal>> dict = new Dictionary<string, List<Animal>>();
+            foreach (var group in animals.ToGroupByType())
+            {
+                List<Animal> ans = new List<Animal>();
+                foreach (var item in group)
+                {
+                    ans.Add(item);
+                }
+                dict.Add(group.Key, ans);
+            }
+
+            return dict;
+        }
+
+
         public static Animal GetYounges(this IEnumerable<Animal> animals)
         {
             return (
@@ -37,15 +68,30 @@ namespace lab_2 {
         }
     }
 
-    public class Animal {
-        public string type;
-        public string name;
-        public int age;
+    public interface IAnimal
+    {
+        string name { get; }
+        string type { get; }
+        int age { get; }
+    }
+
+    public class Animal : IAnimal {
+        public string type {get;}
+        public int age {get;}
+        public string name {get;}
 
         public Animal(string type, string name, int age) {
             this.type = type;
             this.name = name;
             this.age = age;
+        }
+    }
+
+    public class AnimalsComparer : IComparer<Animal>
+    {
+        public int Compare(Animal a1, Animal a2)
+        {
+            return a1.age - a2.age;
         }
     }
 }
