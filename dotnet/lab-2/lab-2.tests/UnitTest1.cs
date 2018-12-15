@@ -42,5 +42,21 @@ namespace lab_2.tests
                 Assert.True(animal.age >= older.age);
             }
         }
+
+
+        [Fact(DisplayName = "Сортування груп по типу за кількістю елементів")]
+        public void Test4()
+        {
+            IEnumerable<IGrouping<string, Animal>> items = (
+                from animal in animals
+                group animal by animal.type into g
+                orderby g.Count()
+                select g
+            );
+            foreach (var item in items)
+            {
+                Console.WriteLine("{0} - {1}", item.Key, item.Count());
+            }
+        }
     }
 }
