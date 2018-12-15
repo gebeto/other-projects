@@ -16,7 +16,8 @@ namespace lab_2
             );
 
             Console.WriteLine("\nAnimals older then 50 years and smaller than 60: {0}", lg50sm60.Count());
-            AnimalsPrinter.PrintAnimals(lg50sm60);
+            lg50sm60.WriteToConsole();
+            // AnimalsPrinter.PrintAnimals(lg50sm60);
         }
 
         static void ToArray(IEnumerable<Animal> animals)
@@ -34,22 +35,20 @@ namespace lab_2
                 select animal
             );
 
-
-
             Selection(animals.GetWithName("John"));
             ToArray(animals);
 
             Dictionary<string, List<Animal>> dict = animals.ToDictionaryByType();
 
             Console.WriteLine("Grouped");
-            AnimalsPrinter.PrintAnimals(dict);
+            dict.WriteToConsole();
 
             Console.WriteLine("\n\nGrouped filtered");
-            AnimalsPrinter.PrintAnimals(dict.SelectMany(
+            dict.SelectMany(
                 kvp => kvp.Value.Where(
                     animal => animal.age > 50
                 )
-            ));
+            ).WriteToConsole();
 
         }
     }
