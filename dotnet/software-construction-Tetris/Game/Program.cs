@@ -12,6 +12,7 @@ namespace Game
 
             // INIT GAME PLAY
             GameScreen playScreen = new GameScreen(20, 20);
+            // GamePlay play = new GamePlay(playScreen);
             GamePlay play = new GamePlay(playScreen);
 
             // INIT MENU

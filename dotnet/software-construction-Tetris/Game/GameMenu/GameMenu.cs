@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-
-namespace Game
-{
+namespace Game {
     public class GameMenu
     {
         public event GameMenuItemChangedHandler onChange;
