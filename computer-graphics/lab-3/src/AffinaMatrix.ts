@@ -37,8 +37,8 @@ export class Point {
         this.y = y;
     }
 
-    pipe(affina: AffinaMatrix) {
-		const res = affinaMult(affina, [this.x, this.y, 1]);
+    pipe(affina: AffinaMatrix, w: number = 1) {
+		const res = affinaMult(affina, [this.x, this.y, w]);
 		this.x = res[0];
 		this.y = res[1];
 		return this;

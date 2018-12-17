@@ -31,6 +31,7 @@ const ControlTranslate = ({ data, title, update, remove, globals }: any) => {
             <DatFolder title={title}>
                 <DatNumber path='x' label='X' min={-(globals.gridSize / 2)} max={globals.gridSize / 2} step={1} />
                 <DatNumber path='y' label='Y' min={-(globals.gridSize / 2)} max={globals.gridSize / 2} step={1} />
+                <DatNumber path='level' label='Level' min={0} max={1} step={0.01} />
                 <DatBoolean path='apply' label='Використати ефект' />
                 <DatButton label='Видалити' onClick={() => remove(data)} />
             </DatFolder>
@@ -44,6 +45,7 @@ const ControlScale = ({ data, title, update, remove, globals }: any) => {
             <DatFolder title={title}>
                 <DatNumber path='x' label='X' min={0.1} max={3} step={0.05} />
                 <DatNumber path='y' label='Y' min={0.1} max={3} step={0.05} />
+                <DatNumber path='level' label='Level' min={0} max={1} step={0.01} />
                 <DatBoolean path='apply' label='Використати ефект' />
                 <DatButton label='Видалити' onClick={() => remove(data)} />
             </DatFolder>
@@ -56,6 +58,7 @@ const ControlRotate = ({ data, title, update, remove, globals }: any) => {
         <DatGui data={data} onUpdate={update}>
             <DatFolder title={title}>
                 <DatNumber path='angle' label='Кут повороту' min={-Math.PI} max={Math.PI} step={0.01} />
+                <DatNumber path='level' label='Level' min={0} max={1} step={0.01} />
                 <DatBoolean path='apply' label='Використати ефект' />
                 <DatButton label='Видалити' onClick={() => remove(data)} />
             </DatFolder>
@@ -144,10 +147,10 @@ class App extends React.Component<any, any> {
                                 if (!item.apply) return;
                                 const action = actionByType(item.type);
                                 if (action) {
-                                    p1.pipe(action(item));
-                                    p2.pipe(action(item));
-                                    p3.pipe(action(item));
-                                    p4.pipe(action(item));
+                                    p1.pipe(action(item), item.level);
+                                    p2.pipe(action(item), item.level);
+                                    p3.pipe(action(item), item.level);
+                                    p4.pipe(action(item), item.level);
                                 }
                             });
 

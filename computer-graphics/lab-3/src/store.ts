@@ -21,6 +21,7 @@ export interface IStore {
 const createItem = (itemsCount: number, opts: any) => ({
     ...opts,
     apply: true,
+    level: 1.0,
     key: Date.now(),
     name: `№${itemsCount + 1} - ${opts.type}`,
 })
