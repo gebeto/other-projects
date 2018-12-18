@@ -116,7 +116,7 @@ class App extends React.Component<any, any> {
         return (
             <div className="grid">
                 <div className="col">
-                    <div className="row">
+                    <div className="row abroles">
                         <div className="abilities">
                             <Abilities />
                         </div>

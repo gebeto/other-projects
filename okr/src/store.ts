@@ -45,22 +45,23 @@ const createAbility = ({ name = 'Name', index = 0 }): IAbility => ({
 });
 
 export const store = createStore({
+
     users: [
-        createUser({ name: 'Кандидат1', abilityCoefs: [0.9, 0.8, 0.7, 0.9, 1.0, 0.9, 0.7, 0.9] }),
-        createUser({ name: 'Кандидат2', abilityCoefs: [0.6, 0.4, 0.8, 0.5, 0.6, 0.5, 0.5, 1.0] }),
-        createUser({ name: 'Кандидат3', abilityCoefs: [0.5, 0.2, 0.3, 0.5, 0.9, 0.5, 0.5, 0.5] }),
-        createUser({ name: 'Кандидат4', abilityCoefs: [0.5, 0.9, 0.5, 0.5, 0.2, 0.5, 0.5, 0.4] }),
-        createUser({ name: 'Кандидат5', abilityCoefs: [0.6, 1.0, 0.5, 0.7, 0.4, 0.7, 0.3, 0.7] }),
-        createUser({ name: 'Кандидат6', abilityCoefs: [0.4, 0.5, 1.0, 0.7, 0.8, 0.9, 0.7, 0.7] }),
-        createUser({ name: 'Кандидат7', abilityCoefs: [0.5, 0.5, 0.3, 1.0, 0.5, 0.5, 0.5, 0.6] }),
+        createUser({ name: 'Кандидат1', abilityCoefs: [0.5, 0.2, 0.3, 0.5, 0.9, 0.5, 0.5, 0.5] }),
+        createUser({ name: 'Кандидат2', abilityCoefs: [0.5, 0.9, 0.5, 0.5, 0.2, 0.5, 0.5, 0.4] }),
+        createUser({ name: 'Кандидат3', abilityCoefs: [0.6, 1.0, 0.5, 0.7, 0.4, 0.7, 0.3, 0.7] }),
+        createUser({ name: 'Кандидат4', abilityCoefs: [0.4, 0.5, 1.0, 0.7, 0.8, 0.9, 0.7, 0.7] }),
+        createUser({ name: 'Кандидат5', abilityCoefs: [0.5, 0.5, 0.3, 1.0, 0.5, 0.5, 0.5, 0.6] }),
+        createUser({ name: 'Кандидат6', abilityCoefs: [0.9, 0.8, 0.7, 0.9, 1.0, 0.9, 0.7, 0.9] }),
+        createUser({ name: 'Кандидат7', abilityCoefs: [0.6, 0.4, 0.8, 0.5, 0.6, 0.5, 0.5, 1.0] }),
     ],
     roles: [
-        createRole({ name: 'Менеджер продукту', abilityCoefs: [0.9, 0.8, 0.3, 0.5, 1.0, 0.5, 0.5, 0.8] }),
-        createRole({ name: 'Менеджер програми', abilityCoefs: [0.9, 0.8, 0.5, 0.9, 0.6, 0.8, 0.6, 0.9] }),
-        createRole({ name: 'Розробник', abilityCoefs: [0.7, 0.8, 1.0, 0.5, 0.5, 0.9, 1.0, 0.6] }),
-        createRole({ name: 'Тестер', abilityCoefs: [0.9, 0.5, 0.3, 0.9, 0.7, 0.5, 0.6, 0.5] }),
-        createRole({ name: 'Інструктор', abilityCoefs: [1.0, 0.6, 0.3, 1.0, 1.0, 0.4, 0.5, 0.6] }),
-        createRole({ name: 'Логістик', abilityCoefs: [0.7, 0.4, 0.8, 0.9, 0.6, 0.8, 0.6, 1.0] }),
+        createRole({ name: 'Менеджер продукту', abilityCoefs: [0.9, 0.8, 0.3, 0.3, 1.0, 1.0, 0.5, 0.8] }),
+        createRole({ name: 'Менеджер програми', abilityCoefs: [0.9, 0.8, 0.5, 0.9, 0.6, 1.0, 0.6, 0.9] }),
+        createRole({ name: 'Розробник', abilityCoefs: [0.7, 1.0, 1.0, 0.5, 0.7, 1.0, 1.0, 0.7] }),
+        createRole({ name: 'Тестер', abilityCoefs: [0.3, 0.3, 0.3, 1.0, 0.7, 0.3, 0.3, 0.3] }),
+        createRole({ name: 'Інструктор', abilityCoefs: [1.0, 0.6, 0.3, 1.0, 1.0, 0.3, 0.3, 0.5] }),
+        createRole({ name: 'Логістик', abilityCoefs: [0.5, 0.4, 0.8, 0.9, 0.6, 0.3, 0.3, 1.0] }),
     ],
     abilities: [
         createAbility({ index: 0, name: 'Вміння координувати роботу команди' }),

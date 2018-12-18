@@ -3,6 +3,11 @@ body {
 	padding: 0;
 }
 
+#app {
+	width: 1000px;
+	margin: 0 auto;
+}
+
 .grid {
 	display: flex;
 
@@ -35,4 +40,18 @@ body {
 		display: table-cell;
 		vertical-align: middle;
 	}
+}
+
+
+
+.abroles {
+	justify-content: space-around;
+	align-items: center;
+	padding: 20px 0px;
+}
+
+.chart-item {
+	border: 1px solid #333;
+	padding-top: 20px;
+	margin: 20px 0px;
 }
