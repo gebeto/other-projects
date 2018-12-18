@@ -1,0 +1,38 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.grid {
+	display: flex;
+
+	.row {
+		display: flex;
+		flex-direction: row;
+	}
+
+	.col {
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+.abilities {
+	min-width: 300px;
+}
+
+.roles {
+	min-width: 500px;
+}
+
+
+.wrapper {
+	display: table;
+	width: 100vw;
+	height: 100vh;
+
+	&>div {
+		display: table-cell;
+		vertical-align: middle;
+	}
+}
