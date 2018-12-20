@@ -5,7 +5,7 @@ module.exports = (env, opts) => webpackMerge(
 	development(env, opts),
 	{
 		devServer: {
-			port: 5001,
+			port: 5000,
 			host: '0.0.0.0'
 		},
 	}

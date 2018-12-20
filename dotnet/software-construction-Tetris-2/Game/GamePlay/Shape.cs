@@ -1,5 +1,6 @@
 using System;
 using SFML.System;
+using SFML.Graphics;
 
 
 namespace Game
@@ -69,6 +70,22 @@ namespace Game
             }
             return new Shape1();
         }
+
+        public static Color ColorByNumber(int number) {
+            if (number == 1) {
+                return Color.Red;
+            }
+            if (number == 2) {
+                return Color.Green;
+            }
+            if (number == 3) {
+                return Color.Blue;
+            }
+            if (number == 4) {
+                return Color.Cyan;
+            }
+            return Color.Black;
+        }
     }
 
     public class Shape1 : AbstractShape
@@ -76,9 +93,9 @@ namespace Game
         public Shape1()
         {
             this.shape = new int[][] {
-                new int[] {1, 1, 1},
-                new int[] {1, 1, 0},
-                new int[] {1, 0, 0},
+                new int[] {2, 2, 2},
+                new int[] {2, 2, 0},
+                new int[] {2, 0, 0},
             };
         }
     }
@@ -87,9 +104,9 @@ namespace Game
         public Shape2()
         {
             this.shape = new int[][] {
-                new int[] {1, 1, 1},
-                new int[] {0, 0, 1},
-                new int[] {0, 0, 1},
+                new int[] {3, 3, 3},
+                new int[] {0, 0, 3},
+                new int[] {0, 0, 3},
             };
         }
     }
@@ -99,8 +116,8 @@ namespace Game
         {
             this.shape = new int[][] {
                 new int[] {0, 0, 0},
-                new int[] {1, 1, 0},
-                new int[] {1, 1, 0},
+                new int[] {4, 4, 0},
+                new int[] {4, 4, 0},
             };
         }
     }

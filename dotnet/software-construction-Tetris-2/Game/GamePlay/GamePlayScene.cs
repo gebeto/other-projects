@@ -73,7 +73,8 @@ namespace Game
                         x + j * pixel,
                         y + i * pixel
                     );
-                    shapeSegment.FillColor = scene[i][j] > 0 ? Color.Red : Color.Black;
+                    // shapeSegment.FillColor = scene[i][j] > 0 ? Color.Red : Color.Black;
+                    shapeSegment.FillColor =  AbstractShape.ColorByNumber(scene[i][j]);
                     window.Draw(shapeSegment);
                 }
             }
@@ -88,7 +89,7 @@ namespace Game
                         x + (j + shape.Position.X) * pixel,
                         y + (i + shape.Position.Y) * pixel
                     );
-                    shapeSegment.FillColor = shape.shape[i][j] > 0 ? Color.Red : Color.Transparent;
+                    shapeSegment.FillColor = shape.shape[i][j] > 0 ? AbstractShape.ColorByNumber(shape.shape[i][j]) : Color.Transparent;
                     window.Draw(shapeSegment);
                 }
             }
