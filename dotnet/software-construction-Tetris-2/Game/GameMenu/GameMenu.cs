@@ -12,50 +12,56 @@ namespace Game
     {
         public event GameMenuItemChangedHandler onChange;
 
-        private int highlighted; 
         public int activeItem {get; private set;}
         public List<GameMenuItem> items;
 
         public GameMenu() {
             this.items = new List<GameMenuItem>();
             this.activeItem = 0;
-            this.highlighted = this.activeItem;
-            Keyboard.onPress += (KeyboardKey key) => {
-                switch (key)
-                {
-                    case KeyboardKey.Enter:
-                        this.activeItem = this.highlighted;
-                        this.items[this.activeItem].select();
-                        this.change();
-                        break;
-
-                    case KeyboardKey.Up:
-                        this.highlighted--;
-                        break;
-
-                    case KeyboardKey.Down:
-                        this.highlighted++;
-                        break;
-
-                    default:
-                        break;
-                }
-
-                if (this.highlighted >= this.items.Count)
-                {
-                    this.highlighted = 0;
-                }
-                else if (this.highlighted < 0)
-                {
-                    this.highlighted = this.items.Count - 1;
-                }
-            };
         }
 
-        private void change() {
+        public void reconfigure(Vector2f bounds) {
+            for (var i = 0; i < items.Count; i++)
+            {
+                GameMenuItem item = items[i];
+                Text text = new Text(item.title, GameContent.TetrisFont, 50);
+                text.Position = new Vector2f(
+                    bounds.X / 2,
+                    bounds.Y / 2 - this.items.Count / 2 * 50 + (i * 50)
+                );
+                FloatRect rect = text.GetLocalBounds();
+                text.Origin = new Vector2f(rect.Width / 2, rect.Height / 2);
+                text.OutlineColor = Color.Red;
+
+                text.FillColor = SFML.Graphics.Color.White;
+                item.text = text;
+            }
+        }
+
+        public void next()
+        {
+            if (this.activeItem == this.items.Count - 1) {
+                this.activeItem = 0;
+            } else {
+                this.activeItem++;
+            }
+        }
+
+        public void prev()
+        {
+            if (this.activeItem == 0) {
+                this.activeItem = this.items.Count - 1;
+            } else {
+                this.activeItem--;
+            }
+        }
+
+        public void change() {
+            var active = this.items[this.activeItem];
+            active.select();
             if (this.onChange != null)
             {
-                this.onChange(this, new GameMenuItemChangedArgs(this.items[this.activeItem]));
+                this.onChange(this, new GameMenuItemChangedArgs(active));
             }
         } 
     }

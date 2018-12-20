@@ -1,4 +1,7 @@
 using System;
+using SFML;
+using SFML.Graphics;
+using SFML.System;
 
 
 namespace Game
@@ -20,6 +23,7 @@ namespace Game
         public string title;
         public int key;
         public event GameMenuItemChangedHandler onSelect;
+        public Text text;
 
         public GameMenuItem(string title, int itemKey, GameMenuItemChangedHandler onSelect = null)
         {
@@ -32,7 +36,8 @@ namespace Game
         {
             if (this.onSelect != null)
             {
-                this.onSelect(this, new GameMenuItemChangedArgs(this));
+                object sender = this;
+                this.onSelect(sender, new GameMenuItemChangedArgs(this));
             }
         }
     }

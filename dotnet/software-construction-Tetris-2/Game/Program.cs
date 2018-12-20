@@ -11,19 +11,26 @@ namespace Game
 
         static void Main(string[] args)
         {
-            GameWindow game = new GameWindow();
+            GameWindow game = new GameWindow("Tetris");
+
+            GamePlay gamePlay = new GamePlay();
+            GamePlayScene gamePlayScene = new GamePlayScene(gamePlay);
 
             GameMenu menu = new GameMenu();
+            GameMenuScene menuScene = new GameMenuScene(menu);
             menu.items.Add(new GameMenuItem("Start Game", 1, (object sender, GameMenuItemChangedArgs a) =>
             {
-                Console.WriteLine("Clicked {0}", ((GameMenuItem)sender).title);
+                game.SetScene(gamePlayScene);
             }));
             menu.items.Add(new GameMenuItem("Exit", 2, (object sender, GameMenuItemChangedArgs a) =>
             {
-                Console.WriteLine("Clicked {0}", ((GameMenuItem)sender).title);
                 game.window.Close();
             }));
-            GameMenuScene menuScene = new GameMenuScene(menu);
+
+            gamePlayScene.OnEsc += (object sender, EventArgs a) =>
+            {
+                game.SetScene(menuScene);
+            };
 
             game.SetScene(menuScene);
             game.Run();

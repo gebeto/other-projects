@@ -4,7 +4,8 @@ namespace Game
 {
     public interface IRenderable
     {
-        // RenderWindow window {get;}
+        void Mount(RenderWindow window);
         void Render(RenderWindow window);
+        void UnMount(RenderWindow window);
     }
 }

@@ -1,46 +1,75 @@
 using System;
-using System.Threading;
+using SFML.System;
+
 
 namespace Game
 {
     public class GamePlay {
+
         public Desk desk;
-        public Score score;
+        public AbstractShape shape;
 
         public GamePlay() {
-            // this.screen = screen;
-            // this.canvas = screen.canvas;
-
-            // this.screen.drawing += this.draw;
-
-            // this.desk = new Desk(this.screen);
-            // this.score = new Score(this.screen);
-
-            Keyboard.onPress += (KeyboardKey key) => {
-                // Shape current = this.desk.shapes[this.desk.shapes.Count - 1];
-                switch (key)
-                {
-                    case KeyboardKey.Left:
-                        // current.x -= 1;
-                        break;
-                    case KeyboardKey.Right:
-                        // current.x += 1;
-                        break;
-                    default:
-                        break;
-                }
-            };
+            this.desk = new Desk();
+            this.shape = new Shape1();
         }
 
-        public void tick()
+        public int[][] MergedWithShapes() {
+            return this.desk.desk;
+        }
+
+        public void nextShape()
         {
-            // Shape current = this.desk.shapes[this.desk.shapes.Count - 1];
-            // current.y += 1;
+            this.desk.MergeWith(shape);
+            this.shape = AbstractShape.GenerateRandomShape();
         }
 
-        public void draw()
+        public void moveShape(int x, int y)
         {
-            this.tick();
+            shape.MoveShape(x, y);
+            
+            // bool isIntersected;
+            // desk.CheckIntersectWithOut(shape, out isIntersected);
+
+            bool isIntersected = false;
+            desk.CheckIntersectWithRef(shape, ref isIntersected);
+
+            if (isIntersected) {
+                shape.ResetPosition();
+            }
+
+            // if (desk.CheckIntersect(shape)) {
+            //     shape.ResetPosition();
+            // }
         }
+
+        public void moveLeft()
+        {
+            this.moveShape(-1, 0);
+        }
+
+        public void moveRight()
+        {
+            this.moveShape(1, 0);
+        }
+
+        public void moveUp()
+        {
+            this.moveShape(0, -1);
+        }
+
+        public void moveDown()
+        {
+            this.moveShape(0, 1);
+        }
+
+        public void rotate()
+        {
+            shape.Rotate();
+            if (this.desk.CheckIntersect(shape)) {
+                shape.Reset();
+            }
+        }
+
     }
 }
