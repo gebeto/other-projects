@@ -10,7 +10,7 @@ const TableRow = connect(undefined, actions)(({ editable, addable, storeKey, ite
         <tr>
             {columns.map((column: any, index: number) =>
                 <React.Fragment key={index}>
-                    <td key={index}>
+                    <td>
                         {editable
                             ?
                             <input value={item[column.accessor]} onChange={(e) => {
@@ -20,7 +20,7 @@ const TableRow = connect(undefined, actions)(({ editable, addable, storeKey, ite
                             <span>{item[column.accessor]}</span>
                         }
                     </td>
-                    {addable ? <td><span onClick={() => removeItem(storeKey, item)}>Видалити</span></td> : null }
+                    {addable ? <td className="remover" onClick={() => removeItem(storeKey, item)}></td> : null }
                 </React.Fragment>
             )}
         </tr>
@@ -32,12 +32,47 @@ const Table = (props: any) => {
     const { editable = false, addable = false, storeKey, title, data, columns } = props;
     return (
         <div className="table">
-            <strong>{title}</strong>
-            <table className="table__table">
+            <strong className="table-title">{title}</strong>
+            <table>
                 <thead>
                     <tr>
                         {columns.map((el: any, index: number) =>
-                            <th colSpan={addable ? 2 : 1} key={index}>{el.title}</th>
+                            <th colSpan={addable ? 2 : 1} key={index}>
+                                <div className="table-header">
+                                    <span>
+                                        {el.title}
+                                    </span>
+                                    {addable ?
+                                        <span className="add-item" onClick={() => {
+                                            props[`add${addable}`]();
+                                        }}></span>
+                                    : null}
+                                </div>
+                            </th>
+                        )}
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.map((item: any, index: number) =>
+                        <TableRow addable={addable} editable={editable} storeKey={storeKey} key={index} item={item} columns={columns} />
+                    )}
+                </tbody>
+            </table>
+        </div>
+    );
+}
+
+
+const ScrollableTableRaw = (props: any) => {
+    const { editable = false, addable = false, storeKey, title, data, columns } = props;
+    return (
+        <div className="t">
+            <strong>{title}</strong>
+            <table className="fixed-header">
+                <thead>
+                    <tr>
+                        {columns.map((el: any, index: number) =>
+                            <th key={index}>{el.title}</th>
                         )}
                     </tr>
                 </thead>
@@ -49,7 +84,7 @@ const Table = (props: any) => {
                 {addable ?
                     <tfoot>
                         <tr>
-                            <th colSpan={addable ? 2 : 1} onClick={() => {
+                            <th onClick={() => {
                                 props[`add${addable}`]();
                             }}>Додати</th>
                         </tr>
@@ -60,6 +95,7 @@ const Table = (props: any) => {
         </div>
     );
 }
+export const ScrollableTable = connect(undefined, actions)(ScrollableTableRaw);
 
 
 export default connect(undefined, actions)(Table);

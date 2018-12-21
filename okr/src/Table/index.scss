@@ -1,9 +1,22 @@
 .table {
 	width: 100%;
-	margin: auto;
 	font-family: Arial;
+	border: 1px solid #eee;
+	padding: 5px;
+	box-sizing: border-box;
 
-	&__table {
+	.table-title {
+		font-size: 30px;
+	}
+
+	.table-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 5px;
+	}
+
+	table {
 		width: 100%;
 		border: 1px solid #333;
 		background: #000;
@@ -23,6 +36,78 @@
 				line-height: 20px;
 			}
 		}
+
+		thead {
+			tr {
+				th {
+					height: 30px;
+				}
+			}
+		}
+
+		tfoot {
+			tr {
+				th {
+					height: 30px;
+				}
+			}
+		}
 	}
 }
 
+.add-item {
+	$button-size: 20px;
+	$cross-size: $button-size - 10px;
+
+	display: inline-block;
+	position: relative;
+	line-height: 20px;
+	width: $button-size;
+	height: $button-size;
+	box-sizing: content-box;
+	// border: 2px solid #fff;
+	border-radius: 50%;
+
+	&:after, &:before {
+		position: absolute;
+		content: " ";
+		background: #fff;
+	}
+	&:before {
+		width: $cross-size;
+		height: 2px;
+		left: ($button-size - $cross-size) / 2;
+		top: $cross-size - 1px;
+	}
+	&:after {
+		width: 2px;
+		height: $cross-size;
+		left: $cross-size - 1px;
+		top: ($button-size - $cross-size) / 2;
+	}
+}
+
+.remover {
+	width: 20px;
+	height: 20px;
+	position: relative;
+
+	&:before, &:after {
+		content: " ";
+		position: absolute;
+		width: 2px;
+		height: 100%;
+		background: red;
+		left: 10px;
+		top: 0;
+		transform-origin: 50% 50%;
+	}
+
+	&:after {
+		transform: rotate(45deg);
+	}
+
+	&:before {
+		transform: rotate(-45deg);
+	}
+}

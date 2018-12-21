@@ -3,18 +3,16 @@ body {
 	padding: 0;
 }
 
-#app {
-	// width: 1000px;
-	// margin: 0 auto;
+.w-100 {
+	width: 100%;
 }
 
-.j-center {
-	justify-content: center;
+.f-1 {
+	flex: 1;
 }
 
 .grid {
 	display: flex;
-
 
 	.row {
 		display: flex;
@@ -25,14 +23,29 @@ body {
 		display: flex;
 		flex-direction: column;
 	}
-}
 
-.abilities {
-	min-width: 300px;
-}
+	.scrollable {
+		overflow-y: scroll;
+		max-height: 100vh;
+	}
 
-.roles {
-	min-width: 500px;
+	.scrollable-x {
+		overflow-x: scroll;
+		max-width: 100%;
+	}
+
+	.scrollable-y {
+		overflow-y: scroll;
+		max-height: 100%;
+	}
+
+	.p-1 {
+		padding: 3px;
+	}
+
+	.p-b-1 {
+		padding-bottom: 3px;
+	}
 }
 
 

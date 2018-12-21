@@ -48,14 +48,14 @@ export const store = createStore({
 
     users: [
         createUser({ name: 'Кандидат1', abilityCoefs: [0.5, 0.2, 0.3, 0.5, 0.9, 0.5, 0.5, 0.5] }),
-        // createUser({ name: 'Кандидат2', abilityCoefs: [0.5, 0.9, 0.5, 0.5, 0.2, 0.5, 0.5, 0.4] }),
-        // createUser({ name: 'Кандидат3', abilityCoefs: [0.6, 1.0, 0.5, 0.7, 0.4, 0.7, 0.3, 0.7] }),
-        // createUser({ name: 'Кандидат4', abilityCoefs: [0.4, 0.5, 1.0, 0.7, 0.8, 0.9, 0.7, 0.7] }),
-        // createUser({ name: 'Кандидат5', abilityCoefs: [0.5, 0.5, 0.3, 1.0, 0.5, 0.5, 0.5, 0.6] }),
-        // createUser({ name: 'Кандидат6', abilityCoefs: [0.9, 0.8, 0.7, 0.9, 1.0, 0.9, 0.7, 0.9] }),
-        // createUser({ name: 'Кандидат7', abilityCoefs: [0.6, 0.4, 0.8, 0.5, 0.6, 0.5, 0.5, 1.0] }),
-        // createUser({ name: 'Кандидат8', abilityCoefs: [0.6, 0.4, 0.8, 0.5, 0.6, 0.5, 0.5, 1.0] }),
-        // createUser({ name: 'Кандидат9', abilityCoefs: [0.6, 0.4, 0.8, 0.5, 0.6, 0.5, 0.5, 1.0] }),
+        createUser({ name: 'Кандидат2', abilityCoefs: [0.5, 0.9, 0.5, 0.5, 0.2, 0.5, 0.5, 0.4] }),
+        createUser({ name: 'Кандидат3', abilityCoefs: [0.6, 1.0, 0.5, 0.7, 0.4, 0.7, 0.3, 0.7] }),
+        createUser({ name: 'Кандидат4', abilityCoefs: [0.4, 0.5, 1.0, 0.7, 0.8, 0.9, 0.7, 0.7] }),
+        createUser({ name: 'Кандидат5', abilityCoefs: [0.5, 0.5, 0.3, 1.0, 0.5, 0.5, 0.5, 0.6] }),
+        createUser({ name: 'Кандидат6', abilityCoefs: [0.9, 0.8, 0.7, 0.9, 1.0, 0.9, 0.7, 0.9] }),
+        createUser({ name: 'Кандидат7', abilityCoefs: [0.6, 0.4, 0.8, 0.5, 0.6, 0.5, 0.5, 1.0] }),
+        createUser({ name: 'Кандидат8', abilityCoefs: [0.6, 0.4, 0.8, 0.5, 0.6, 0.5, 0.5, 1.0] }),
+        createUser({ name: 'Кандидат9', abilityCoefs: [0.6, 0.4, 0.8, 0.5, 0.6, 0.5, 0.5, 1.0] }),
     ],
     roles: [
         createRole({ name: 'Менеджер продукту', abilityCoefs: [0.9, 0.8, 0.3, 0.3, 1.0, 1.0, 0.5, 0.8] }),
@@ -87,19 +87,31 @@ export const selectorRolesAbilities = (state: any) => ({ roles: state.roles, abi
 export const selectorAbilities = (state: any) => ({ abilities: state.abilities });
 
 const old_calculateData = (users: any, roles: any) => users.map((user: any, index: number) => {
-    const item: any = {
-        title: user.name,
-        data: [],
+    // const item: any = {
+    //     title: user.name,
+    //     data: [],
+    // };
+    // for (var i = 0; i < roles.length; i++) {
+    //     // items[`item_${i + 1}`] = Math.max(
+    //     item.data.push(Math.max(
+    //         ...user.abilityCoefs.map((ab: any, ind: number) => 
+    //                 Math.min(ab, roles[i].abilityCoefs[ind])
+    //             )
+    //         ))
+    // }
+    // return item;
+
+    const items: any = {
+        item_0: user.name,
     };
     for (var i = 0; i < roles.length; i++) {
-        // items[`item_${i + 1}`] = Math.max(
-        item.data.push(Math.max(
+        items[`item_${i + 1}`] = Math.max(
             ...user.abilityCoefs.map((ab: any, ind: number) => 
                     Math.min(ab, roles[i].abilityCoefs[ind])
                 )
-            ))
+            );
     }
-    return item;
+    return items;
 });
 
 const calculateData = (users: any, roles: any) =>
