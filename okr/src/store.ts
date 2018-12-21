@@ -48,12 +48,14 @@ export const store = createStore({
 
     users: [
         createUser({ name: 'Кандидат1', abilityCoefs: [0.5, 0.2, 0.3, 0.5, 0.9, 0.5, 0.5, 0.5] }),
-        createUser({ name: 'Кандидат2', abilityCoefs: [0.5, 0.9, 0.5, 0.5, 0.2, 0.5, 0.5, 0.4] }),
-        createUser({ name: 'Кандидат3', abilityCoefs: [0.6, 1.0, 0.5, 0.7, 0.4, 0.7, 0.3, 0.7] }),
-        createUser({ name: 'Кандидат4', abilityCoefs: [0.4, 0.5, 1.0, 0.7, 0.8, 0.9, 0.7, 0.7] }),
-        createUser({ name: 'Кандидат5', abilityCoefs: [0.5, 0.5, 0.3, 1.0, 0.5, 0.5, 0.5, 0.6] }),
-        createUser({ name: 'Кандидат6', abilityCoefs: [0.9, 0.8, 0.7, 0.9, 1.0, 0.9, 0.7, 0.9] }),
-        createUser({ name: 'Кандидат7', abilityCoefs: [0.6, 0.4, 0.8, 0.5, 0.6, 0.5, 0.5, 1.0] }),
+        // createUser({ name: 'Кандидат2', abilityCoefs: [0.5, 0.9, 0.5, 0.5, 0.2, 0.5, 0.5, 0.4] }),
+        // createUser({ name: 'Кандидат3', abilityCoefs: [0.6, 1.0, 0.5, 0.7, 0.4, 0.7, 0.3, 0.7] }),
+        // createUser({ name: 'Кандидат4', abilityCoefs: [0.4, 0.5, 1.0, 0.7, 0.8, 0.9, 0.7, 0.7] }),
+        // createUser({ name: 'Кандидат5', abilityCoefs: [0.5, 0.5, 0.3, 1.0, 0.5, 0.5, 0.5, 0.6] }),
+        // createUser({ name: 'Кандидат6', abilityCoefs: [0.9, 0.8, 0.7, 0.9, 1.0, 0.9, 0.7, 0.9] }),
+        // createUser({ name: 'Кандидат7', abilityCoefs: [0.6, 0.4, 0.8, 0.5, 0.6, 0.5, 0.5, 1.0] }),
+        // createUser({ name: 'Кандидат8', abilityCoefs: [0.6, 0.4, 0.8, 0.5, 0.6, 0.5, 0.5, 1.0] }),
+        // createUser({ name: 'Кандидат9', abilityCoefs: [0.6, 0.4, 0.8, 0.5, 0.6, 0.5, 0.5, 1.0] }),
     ],
     roles: [
         createRole({ name: 'Менеджер продукту', abilityCoefs: [0.9, 0.8, 0.3, 0.3, 1.0, 1.0, 0.5, 0.8] }),
@@ -79,22 +81,25 @@ export const store = createStore({
 export const selectorAll = (state: any) => ({ ...state });
 export const selectorUsers = (state: any) => ({ users: state.users });
 export const selectorUsersRoles = (state: any) => ({ users: state.users, roles: state.roles });
+export const selectorUsersAbilities = (state: any) => ({ users: state.users, abilities: state.abilities });
 export const selectorRoles = (state: any) => ({ roles: state.roles });
 export const selectorRolesAbilities = (state: any) => ({ roles: state.roles, abilities: state.abilities });
 export const selectorAbilities = (state: any) => ({ abilities: state.abilities });
 
 const old_calculateData = (users: any, roles: any) => users.map((user: any, index: number) => {
-    const items: any = {
-        item_0: user.name,
+    const item: any = {
+        title: user.name,
+        data: [],
     };
     for (var i = 0; i < roles.length; i++) {
-        items[`item_${i + 1}`] = Math.max(
+        // items[`item_${i + 1}`] = Math.max(
+        item.data.push(Math.max(
             ...user.abilityCoefs.map((ab: any, ind: number) => 
                     Math.min(ab, roles[i].abilityCoefs[ind])
                 )
-            )
+            ))
     }
-    return items;
+    return item;
 });
 
 const calculateData = (users: any, roles: any) =>
@@ -127,7 +132,7 @@ export const selectorCalculatedAbilities = ({ users, roles }: any) => ({
 
 export const actions = (store: any) => ({
     addUser: (state: IStore) => ({
-        users: state.users.concat([createUser({})]),
+        users: state.users.concat([createUser({ name: `user #${state.users.length}` })]),
     }),
     addRole: (state: IStore) => ({
         roles: state.roles.concat([createRole({})]),
@@ -135,7 +140,7 @@ export const actions = (store: any) => ({
     addAbility: (state: IStore) => ({
         abilities: state.abilities.concat([createAbility({ index: state.abilities.length })]),
     }),
-    updateItem: (state: IStore, storeKey: string, item: any, index: number, key: any, value: any) => ({
+    updateTableItem: (state: IStore, storeKey: string, item: any, index: any, key: any, value: any) => ({
         [storeKey]: (state as any)[storeKey].map((el: any) => {
             if (el === item) {
                 return {
@@ -144,6 +149,22 @@ export const actions = (store: any) => ({
                 }
             }
             return el;
+        }),
+    }),
+    updateItem: (state: IStore, storeKey: string, item: any, key: any, value: any) => ({
+        [storeKey]: (state as any)[storeKey].map((el: any) => {
+            if (el === item) {
+                return {
+                    ...el,
+                    [key]: value,
+                }
+            }
+            return el;
+        }),
+    }),
+    removeItem: (state: IStore, storeKey: string, item: any) => ({
+        [storeKey]: (state as any)[storeKey].filter((el: any) => {
+            return !(el === item);
         }),
     }),
 });

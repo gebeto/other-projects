@@ -4,12 +4,17 @@ body {
 }
 
 #app {
-	width: 1000px;
-	margin: 0 auto;
+	// width: 1000px;
+	// margin: 0 auto;
+}
+
+.j-center {
+	justify-content: center;
 }
 
 .grid {
 	display: flex;
+
 
 	.row {
 		display: flex;

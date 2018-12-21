@@ -4,39 +4,34 @@ import { Bar } from 'react-chartjs-2';
 import * as Colors from './colors';
 
 
-export default class Chart extends React.Component<any, any> {
+class Chart extends React.Component<any, any> {
 	render() {
-		const { title, data } = this.props;
+		const { title, data, labels } = this.props;
 
 		return (
 			<div className="chart-item">
 				<Bar data={{
 					datasets: [{
-						data: [...data, 1] || [
-							1.0,
-							0.9,
-							0.9,
-							0.9,
-							0.9,
-							0.9,
-						],
-						backgroundColor: [
-							Colors.red,
-							Colors.orange,
-							Colors.yellow,
-							Colors.green,
-							Colors.blue,
-							Colors.purple,
-						],
+						data: [...data, 1] || [],
+						backgroundColor: Colors.colors,
+						// backgroundColor: [
+						// 	Colors.red,
+						// 	Colors.orange,
+						// 	Colors.yellow,
+						// 	Colors.green,
+						// 	Colors.blue,
+						// 	Colors.purple,
+						// ],
 					}],
-					labels: [
-						'Менеджер продукту',
-						'Менеджер програми',
-						'Розробник',
-						'Тестер',
-						'Інструктор',
-						'Логістик',
-					]
+					labels: labels,
+					// labels: [
+					// 	'Менеджер продукту',
+					// 	'Менеджер програми',
+					// 	'Розробник',
+					// 	'Тестер',
+					// 	'Інструктор',
+					// 	'Логістик',
+					// ]
 				}}
 				options={{
 					responsive: true,
@@ -67,3 +62,6 @@ export default class Chart extends React.Component<any, any> {
 		);
 	}
 }
+
+
+export default Chart;
