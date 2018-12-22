@@ -3,6 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const prompts = require('prompts');
 
@@ -45,6 +46,9 @@ const baseConfig = (env, opts) => ({
 			templateParameters: {
 				title: require(path.resolve(opts.path, "package.json")).name,
 			}
+		}),
+		new BundleAnalyzerPlugin({
+			analyzerMode: 'static',
 		}),
 	]
 });
