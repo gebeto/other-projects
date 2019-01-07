@@ -4,6 +4,7 @@
     "license": "MIT",
     "scripts": {
         "build": "webpack --env production",
+        "analyze": "webpack --env analyze",
         "dev": "webpack --env development",
         "watch": "npm run dev -- --watch",
         "serve": "webpack-dev-server --env serve"
